@@ -20,7 +20,6 @@ x86/
 bld/
 [Bb]in/
 [Oo]bj/
-[Ll]og/
 
 # Visual Studio 2015 cache/options directory
 .vs/
@@ -80,8 +79,6 @@ ipch/
 *.opensdf
 *.sdf
 *.cachefile
-*.VC.db
-*.VC.VC.opendb
 
 # Visual Studio profiler
 *.psess
@@ -140,15 +137,10 @@ publish/
 # Publish Web Output
 *.[Pp]ublish.xml
 *.azurePubxml
-# TODO: Comment the next line if you want to checkin your web deploy settings
+# TODO: Comment the next line if you want to checkin your web deploy settings 
 # but database connection strings (with potential passwords) will be unencrypted
 *.pubxml
 *.publishproj
-
-# Microsoft Azure Web App publish settings. Comment the next line if you want to
-# checkin your Azure Web App publish settings, but sensitive information contained
-# in these scripts will be unencrypted
-PublishScripts/
 
 # NuGet Packages
 *.nupkg
@@ -158,9 +150,14 @@ PublishScripts/
 !**/packages/build/
 # Uncomment if necessary however generally it will be regenerated when needed
 #!**/packages/repositories.config
-# NuGet v3's project.json files produces more ignoreable files
+#NuGet
+packages/
+# nuget v3 with project.json 
+# Oren Novotny 
+# http://www.bartlannoeye.com/blog/creating-nuget-packages-for-your-windows-10-uwp-libraries
 *.nuget.props
 *.nuget.targets
+*.lock.json
 
 # Microsoft Azure Build Output
 csx/
@@ -170,11 +167,12 @@ csx/
 ecf/
 rcf/
 
-# Windows Store app package directories and files
+# Microsoft Azure ApplicationInsights config file
+ApplicationInsights.config
+
+# Windows Store app package directory
 AppPackages/
 BundleArtifacts/
-Package.StoreAssociation.xml
-_pkginfo.txt
 
 # Visual Studio cache files
 # files ending in .cache can be ignored
@@ -192,10 +190,6 @@ ClientBin/
 *.publishsettings
 node_modules/
 orleans.codegen.cs
-
-# Since there are multiple workflows, uncomment next line to ignore bower_components
-# (https://github.com/github/gitignore/pull/1529#issuecomment-104372622)
-#bower_components/
 
 # RIA/Silverlight projects
 Generated_Code/
@@ -242,11 +236,244 @@ _Pvt_Extensions
 
 # Paket dependency manager
 .paket/paket.exe
-paket-files/
 
 # FAKE - F# Make
 .fake/
 
-# JetBrains Rider
-.idea/
-*.sln.iml
+#==============================================================================
+### Windows ###
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+#==============================================================================
+#Ignore email files delivered to specified pickup directory
+*.eml
+
+#Allow NuGet.exe (do not ignore)
+!NuGet.exe
+
+#Ignore WebDeploy publish profiles
+*.Publish.xml
+
+#Ignore Azure build csdef & Pubxml files
+ServiceDefinition.build.csdef
+*.azurePubxml
+
+#Allow ReSharper .DotSettings (for non-namespace-provider properties)
+!*.csproj.DotSettings
+
+#Ignore private folder
+/Private/
+
+#==============================================================================
+# SQL Server files
+App_Data/*.mdf
+App_Data/*.ldf
+
+*App_Data/*.mdf
+*App_Data/*.ldf
+
+#Visual Studio DB Project
+*.dbmdl
+[Ss]ql/
+
+
+
+#==============================================================================
+# HolisticWare
+#
+# http://www.gitignore.io/.
+#
+#	https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
+#	http://stackoverflow.com/questions/2143956/gitignore-for-visual-studio-projects-and-solutions
+#	
+
+
+#----------------------------------------------
+# MacOSX
+**/*.DS_Store
+**/.DS_Store
+**/._*
+**/__MACOSX
+#----------------------------------------------
+
+#----------------------------------------------
+# source control
+**/.svn*
+**/.git.*
+**/.git.*/*
+#----------------------------------------------
+
+#----------------------------------------------
+# Cake Build system
+tools/
+**/tools/
+#----------------------------------------------
+
+#----------------------------------------------
+# Xamarin Components and nuget packages
+**/Components/
+**/packages/
+src/samples/Components/**
+source/samples/Components/**
+source/Components/**
+samples/Components/**
+#----------------------------------------------
+
+#----------------------------------------------
+# sensitive data
+**/*.hidden.cs
+**/*.hidden.md
+**/*.hidden.sh
+**/*.hidden.bat
+**/*.hidden.cmd
+**/*.secure*.cs
+**/*.secure*.md
+**/*.secure*.sh
+**/*.secure*.bat
+**/*.secure*.cmd
+**/*.secret*.cs
+**/*.secret*.md
+**/*.secret*.sh
+**/*.secret*.bat
+*/*.secret*.cmd
+
+**/*.data.bat
+**/*.data.sh
+**/*.secure.data.md
+**/*.data.md
+**/*.secured.md
+**/*.secured.md
+**/*.secure*
+**/*.data.*
+#----------------------------------------------
+
+#----------------------------------------------
+# Xamarin Studio
+**/*.userprefs
+#----------------------------------------------
+
+#----------------------------------------------
+# Xamarin.Android
+# Security (project id etc)
+# **/AndroidManifest.xml
+
+**/Resource.designer.cs
+#----------------------------------------------
+
+#----------------------------------------------
+# Xamarin.Android sharpen
+docs/workspace/sharpen/**
+#----------------------------------------------
+
+#----------------------------------------------
+# Xamarin.Android Eclipse
+*.pydevproject
+.metadata
+.gradle
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# CDT-specific
+.cproject
+
+# PDT-specific
+.buildpath
+
+# sbteclipse plugin 
+.target
+
+# TeXlipse plugin
+.texlipse
+/Tools/Eclipse.Workspace/*.DS_Store
+#----------------------------------------------
+# Xamarin.Android sharpen
+
+**/UpgradeLog.htm
+#.....................................................
+
+/docs/ubertesters.sdk.ios %
+
+
+#------------------------------------------
+# Android
+**/Resources/Resource.[Dd]esigner.cs
+**/Resource.Designer.cs
+**/*.csproj.bak
+
+# ignore Xamarin.Android Resource.Designer.cs files
+**/[Rr]esource.[Dd]esigner.cs
+**/*.Droid/**/[Rr]esource.[Dd]esigner.cs
+**/*.Android/**/[Rr]esource.[Dd]esigner.cs
+**/Android/**/[Rr]esource.[Dd]esigner.cs
+#------------------------------------------
+
+#------------------------------------------
+# Xamarin.iOS build files
+**DerivedData**
+**build**
+lib/**
+#------------------------------------------
+
+#------------------------------------------
+# iOS build files
+**DerivedData**
+**build**
+lib/**
+#------------------------------------------
+
+#------------------------------------------
+# .net Core
+**/project.lock.json
+#------------------------------------------
+
+#------------------------------------------
+# JetBrains IntelliJ Rider IDE
+**/.idea/
+#------------------------------------------
+
+#------------------------------------------
+# Cake Build
+tools/**
+#------------------------------------------
+
+#------------------------------------------
+# Xamarin CI project structure
+output/**
+#------------------------------------------
+
+
+#------------------------------------------
+# Universal Windows Platform
+**/project.lock.json
+#------------------------------------------
+
+#==============================================================================
+df-post.txt
+df-pre.txt
