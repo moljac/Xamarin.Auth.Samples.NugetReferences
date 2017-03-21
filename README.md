@@ -1,0 +1,1 @@
+# Xamarin.Auth.Samples.NugetReferences
