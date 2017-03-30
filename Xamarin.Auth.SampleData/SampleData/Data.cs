@@ -66,6 +66,8 @@ namespace Xamarin.Auth.SampleData
 			GoogleOAuth2 google = new GoogleOAuth2();
 			TestCases.Add(google.Description,google);
 
+            FitbitOAuth2 fitbit = new FitbitOAuth2();
+			TestCases.Add(fitbit.Description, fitbit);
 
 			InstagramOAuth2 instagram = new InstagramOAuth2();
 			TestCases.Add(instagram.Description,instagram);
