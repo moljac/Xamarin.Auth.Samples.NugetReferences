@@ -21,6 +21,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 {
     public class TestProvidersController : UITableViewController
     {
+        //=================================================================
         // Xamarin.Auth API test switch
         //  true    - Native UI
         //            Android - [Chrome] Custom Tabs
@@ -28,15 +29,33 @@ namespace Xamarin.Auth.Sample.XamarinIOS
         //  false   - embedded WebViews
         //            Android - WebView
         //            iOS - UIWebView
-        bool test_native_ui = true;
+        bool test_native_ui = false;
+		//=================================================================
 
-        UIColor color_xamarin_blue;
+		UIColor color_xamarin_blue;
 
 		string[] items = Data.TestCases.Keys.ToArray();
 
         public TestProvidersController() : base(UITableViewStyle.Plain)
         {
-            Title = "OAuth Providers";
+            //=================================================================
+            //  switching between 
+            //      embbedded browsers (UIWebView or WKWebView) currently default
+            //  and
+            //      Native UI (SFSafariWebView)
+            //  read the docs about pros and cons
+            test_native_ui = false;
+            //=================================================================
+            //  switching between 
+            //          UIWebView (default) 
+            //      and 
+            //          WKWebView)
+            //  read the docs about pros and cons
+            Xamarin.Auth.WebViewConfiguration.IOS.IsUsingWKWebView = true;
+			//=================================================================
+
+
+			Title = "OAuth Providers";
             color_xamarin_blue = UIColor.FromRGB(0x34, 0x98, 0xdb);
 
             return;
