@@ -31,6 +31,9 @@ In Package Console - Visual Studio:
 
 ### Providers samples
 
+Xamarin Traditional/Standard (Xamarin.Android and Xamarin.iOS) samples for
+numerous OAuth providers:
+
     Get-Project Xamarin.Auth.Sample.XamarinAndroid              | Install-Package Xamarin.Auth
     Get-Project Xamarin.Auth.Sample.XamarinIOS                  | Install-Package Xamarin.Auth
     Get-Project Xamarin.Auth.Sample.UniversalWindowsPlatform    | Install-Package Xamarin.Auth
@@ -68,9 +71,56 @@ In Package Console - Visual Studio:
 
 Xamarin.Forms with CustomRenderers implementation of Xamarin.Auth
 
+Samples.NativeUI
+
+    Get-Project Samples.NativeUI            | Install-Package Xamarin.Auth
+    Get-Project Samples.NativeUI.Android    | Install-Package Xamarin.Auth
+    Get-Project Samples.NativeUI.iOS        | Install-Package Xamarin.Auth
+    Get-Project Samples.NativeUI.UWP        | Install-Package Xamarin.Auth
+
+
 ### Evolve16 samples - Xamarin.Forms 
 
 Xamarin.Forms with Presenters (without CustomRenderers) implementation of Xamarin.Auth
+
+#### Usage Init
+
+Android
+
+https://github.com/moljac/Xamarin.Auth.Samples.NugetReferences/blob/master/Evolve16Labs/Droid/MainActivity.cs#L20
+	
+	global::Xamarin.Auth.Presenters.XamarinAndroid.AuthenticationConfiguration.Init(this, bundle);
+
+iOS
+
+https://github.com/moljac/Xamarin.Auth.Samples.NugetReferences/blob/master/Evolve16Labs/iOS/AppDelegate.cs#L16
+
+	global::Xamarin.Auth.Presenters.XamarinIOS.AuthenticationConfiguration.Init();
+	
+#### Usage Present
+
+Shared Code (Portable Class Library)
+
+https://github.com/moljac/Xamarin.Auth.Samples.NugetReferences/blob/master/Evolve16Labs/Portable/MainPage.xaml.cs#L41-L55
+
+	var authenticator = new OAuth2Authenticator
+		(
+			ServerInfo.ClientId,
+			Scope,
+			ServerInfo.AuthorizationEndpoint,
+			ServerInfo.RedirectionEndpoint,
+			null,
+			isUsingNativeUI: true
+		);
+
+	authenticator.Completed += OnAuthCompleted;
+	authenticator.Error += OnAuthError;
+
+	var presenter = new Xamarin.Auth.Presenters.OAuthLoginPresenter();
+	presenter.Login(authenticator);
+
+	
+#### Installation	
 
      Get-Project ComicBook              | Install-Package Xamarin.Auth
      Get-Project ComicBook.Droid        | Install-Package Xamarin.Auth
