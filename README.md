@@ -14,6 +14,18 @@ repo:
 
 https://github.com/xamarin/Xamarin.Auth/tree/portable-bait-and-switch/samples/Traditional.Standard/references02nuget/Providers
 
+## Samples Technology
+
+1.	Xamarin Traditional/Standard (Xamarin.Android and Xamarin.iOS)		
+	[./Providers/](./Providers/)			
+2.	Xamarin.Forms Samples Evolve16 Labs				
+	Presenters implementation, no Custom Renderers		
+	[./Evolve16/](./Providers/)	
+2.	Xamarin.Forms Sample TODO				
+	Custom Renderersimplementation				
+	[]()	
+	
+
 ## Community (Discussions) about Xamarin.Auth
 
 Discussion[s] about Xamarin.Auth is on community Xamarin Chat (Slack team) in
