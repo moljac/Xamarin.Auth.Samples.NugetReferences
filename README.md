@@ -16,15 +16,18 @@ https://github.com/xamarin/Xamarin.Auth/tree/portable-bait-and-switch/samples/Tr
 
 ## Samples Technology
 
+Samples are available as
+
 1.	Xamarin Traditional/Standard (Xamarin.Android and Xamarin.iOS)		
 	[./Providers/](./Providers/)			
 2.	Xamarin.Forms Samples Evolve16 Labs				
 	Presenters implementation, no Custom Renderers		
-	[./Evolve16/](./Providers/)	
-2.	Xamarin.Forms Sample TODO				
+	[./Evolve16/](./Providers/)			
+3.	Xamarin.Forms Sample TODO				
 	Custom Renderersimplementation				
 	[]()	
 	
+Suggestion: start with Xamarin Traditional/Standar samples.
 
 ## Community (Discussions) about Xamarin.Auth
 
@@ -36,6 +39,21 @@ https://xamarinchat.slack.com/messages/C4TD1NHPT/
 For those without account go here and get one:
 
 https://xamarinchat.herokuapp.com/
+
+## Documentation
+
+Following docs (in this repo) are working docs which will be copied to
+Xamarin.Auth official repo together with samples:
+
+*	[./docs/GettingStarted.md](./docs/GettingStarted.md)		
+*	[./docs/Details.md](./docs/Details.md)		
+
+
+
+## Setup
+
+
+
 
 ## Installing nugets for lazy butts like me
 
