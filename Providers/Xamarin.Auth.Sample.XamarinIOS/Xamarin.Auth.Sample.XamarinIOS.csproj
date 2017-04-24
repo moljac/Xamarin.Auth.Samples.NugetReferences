@@ -128,6 +128,9 @@
     <Reference Include="Validation">
       <HintPath>..\packages\Validation.2.4.15\lib\netstandard1.3\Validation.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin.Auth">
+      <HintPath>..\packages\Xamarin.Auth.1.5.0-alpha-08\lib\Xamarin.iOS10\Xamarin.Auth.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json">
@@ -147,7 +150,7 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="TestProvidersController.cs" />
-    <Compile Include="AppDelegate.HandleOpenURL.SchemeCapturing.cs" />
+    <Compile Include="Xamarin.Auth\AppDelegate.HandleOpenURL.SchemeCapturing.cs" />
   </ItemGroup>
   <!--
   ======================================================================================
@@ -164,11 +167,10 @@
   ======================================================================================
   -->
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\source\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj">
-      <Project>{15BE2387-8E72-4C0B-8A6A-460EF5FA4539}</Project>
-      <Name>Xamarin.Auth.XamarinIOS</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Xamarin.Auth.SampleData\Xamarin.Auth.SamplesData.csproj">
+    <Folder Include="Xamarin.Auth\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Xamarin.Auth.SampleData\Xamarin.Auth.SamplesData.csproj">
       <Project>{D94B6FF7-FAA3-46AB-837A-0FA9328BA221}</Project>
       <Name>Xamarin.Auth.SamplesData</Name>
     </ProjectReference>
