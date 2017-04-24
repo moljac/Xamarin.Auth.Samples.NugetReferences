@@ -54,7 +54,6 @@
     <Compile Include="SampleData\Providers\FacebookOAuth2WWWApp127001.cs" />
     <Compile Include="SampleData\Providers\GithubOAuth2HttpsXamarinCom.cs" />
     <Compile Include="SampleData\Providers\GitLabOAuth2.cs" />
-    <Compile Include="SampleData\Providers\GoogleOAuth2.cs" />
     <Compile Include="SampleData\Providers\InstagramOAuth2.cs" />
     <Compile Include="SampleData\Providers\LinkedInOAuth1.cs" />
     <Compile Include="SampleData\Providers\LinkedInOAuth2.cs" />
@@ -73,6 +72,9 @@
     <Compile Include="SampleData\Providers\FitbitOAuth2.cs" />
     <Compile Include="SampleData\Providers\FiveHundredPx500PxOAuth1Xamarin.cs" />
     <Compile Include="SampleData\Providers\FiveHundredPx500PxOAuth1CustomSchemeLocalhost.cs" />
+    <Compile Include="SampleData\Providers\GoogleOAuth2NativeUIAndroid.cs" />
+    <Compile Include="SampleData\Providers\GoogleOAuth2NativeUIIOS.cs" />
+    <Compile Include="SampleData\Providers\GoogleOAuth2WebApp2015HttpXamarinCom.cs" />
   </ItemGroup>
   <ItemGroup>
     <!--
