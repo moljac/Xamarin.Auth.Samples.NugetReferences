@@ -19,13 +19,14 @@ https://github.com/xamarin/Xamarin.Auth/tree/portable-bait-and-switch/samples/Tr
 Samples are available as
 
 1.	Xamarin Traditional/Standard (Xamarin.Android and Xamarin.iOS)		
-	[./Providers/](./Providers/)			
+	[./Traditional.Standard/Providers/](./Traditional.Standard/Providers/)			
 2.	Xamarin.Forms Samples Evolve16 Labs				
 	Presenters implementation, no Custom Renderers		
-	[./Evolve16/](./Providers/)			
+	[./Xamarin.Forms/Evolve16/](./Xamarin.Forms/Evolve16/)			
 3.	Xamarin.Forms Sample TODO				
-	Custom Renderersimplementation				
-	[]()	
+	[./Xamarin.Forms/NativeUI/](./Xamarin.Forms/NativeUI/)			
+	Custom Renderers and Presenters (Dependency Service/Injection) implementation				
+
 	
 Suggestion: start with Xamarin Traditional/Standar samples.
 
