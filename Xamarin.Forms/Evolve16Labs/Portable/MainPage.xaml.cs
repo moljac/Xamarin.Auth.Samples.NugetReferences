@@ -233,16 +233,43 @@ namespace ComicBook
 		};
 
         bool native_ui = true;
-        // * /
-         
-    protected void pickerUIFrameworks_SelectedIndexChanged(object sender, System.EventArgs e)
+
+        protected void pickerUIFrameworks_SelectedIndexChanged(object sender, System.EventArgs e)
         {
+            Picker p = sender as Picker;
+
+            if (((string)p.SelectedItem).Equals("Native UI (Custom Tabs or SFSafariViewController"))
+            {
+                native_ui = true;
+            }
+            else if (((string)p.SelectedItem).Equals("Embedded WebView"))
+            {
+                native_ui = false;
+            }
+            else
+            {
+                throw new ArgumentException("UIFramework error");
+            }
+
             return;
         }
 
         protected void pickerFormsImplementations_SelectedIndex(object sender, System.EventArgs e)
         {
             return;
+        }
+
+        public List<string> Views => _Views;
+
+        List<string> _Views = new List<string>()
+		{
+			"UIWebView",
+			"WKWebView",
+		};
+
+        protected void pickerViews_SelectedIndex(object sender, System.EventArgs e)
+        {
+        	return;
         }
     }
 }

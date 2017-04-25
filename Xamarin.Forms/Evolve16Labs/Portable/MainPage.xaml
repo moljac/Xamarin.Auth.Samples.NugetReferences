@@ -27,7 +27,18 @@
 				    ItemsSource="{Binding FormsImplementations}" 
                     SelectedIndex="{Binding pickerFormsImplementations_SelectedIndex}"
 				    />
-
+                <OnPlatform x:TypeArguments="View">
+                    <OnPlatform.iOS>
+                        <Picker 
+                            x:Name="pickerViews" 
+                            ItemsSource="{Binding Views}" 
+                            SelectedIndex="{Binding pickerViews_SelectedIndex}"
+                            />
+                    </OnPlatform.iOS>
+                    <OnPlatform.Android>
+                        <Label Text="Android" />
+                    </OnPlatform.Android>
+                </OnPlatform>
 				<Button x:Name="implicitButton" Text="Implicit flow" />
 				<Button x:Name="authorizationCodeButton" Text="Authorization Code flow" />
 				<Button x:Name="getProfileButton" Text="Get your profile data" IsEnabled="false" />
