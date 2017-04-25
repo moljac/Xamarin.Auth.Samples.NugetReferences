@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="ComicBook.MainPage">
+    <ContentPage.Padding>
+            <OnPlatform 
+                x:TypeArguments="Thickness" 
+		        iOS="0, 20, 0, 0" 
+		        WinPhone="20,20,20,20" 
+			    >
+		    </OnPlatform>
+    </ContentPage.Padding>
+	<Grid Padding="12">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="auto" />
+		</Grid.RowDefinitions>
+		<ScrollView>
+			<StackLayout>
+				<!--
+                -->
+				<Picker 
+                    x:Name="pickerUIFrameworks" 
+				    ItemsSource="{Binding UIFrameworks}" 
+					SelectedIndexChanged="pickerUIFrameworks_SelectedIndexChanged"
+				    />
+                <Picker 
+                    x:Name="pickerFormsImplementations" 
+				    ItemsSource="{Binding FormsImplementations}" 
+                    SelectedIndex="{Binding pickerFormsImplementations_SelectedIndex}"
+				    />
+
+				<Button x:Name="implicitButton" Text="Implicit flow" />
+				<Button x:Name="authorizationCodeButton" Text="Authorization Code flow" />
+				<Button x:Name="getProfileButton" Text="Get your profile data" IsEnabled="false" />
+				<Button x:Name="refreshButton" Text="Refresh Tokens" IsEnabled="false" />
+				<Label x:Name="nameText" Text="" HorizontalTextAlignment="Center" />
+				<Label x:Name="emailText" Text="" HorizontalTextAlignment="Center" />
+				<Image x:Name="profileImage" WidthRequest="300" HeightRequest="300" />
+			</StackLayout>
+		</ScrollView>
+		<Label x:Name="statusText" Grid.Row="1" HorizontalTextAlignment="Center" />
+	</Grid>
+</ContentPage>
