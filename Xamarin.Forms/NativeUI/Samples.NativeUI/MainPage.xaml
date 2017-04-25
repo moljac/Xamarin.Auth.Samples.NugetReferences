@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:local="clr-namespace:Samples.NativeUI"
+	x:Class="Samples.NativeUI.MainPage"
+	>
+
+    <Button 
+		Text="Login FitBit" 
+		Clicked="Button_Login_Fitbit_Clicked" 
+		VerticalOptions="Center" HorizontalOptions="Center" 
+		/>
+
+    <Button 
+        Text="Login Google NEW NativeUI" 
+        Clicked="Button_Login_Google_New_NativeUI_Clicked" 
+        VerticalOptions="Center" HorizontalOptions="Center" 
+        />
+
+    <Button 
+        Text="Login Google OLD Web App 2015-04" 
+        Clicked="Button_Login_Google_Old_WebApp_Clicked" 
+        VerticalOptions="Center" HorizontalOptions="Center" 
+        />
+	
+</ContentPage>
