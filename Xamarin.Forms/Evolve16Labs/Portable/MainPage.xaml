@@ -15,18 +15,25 @@
 		</Grid.RowDefinitions>
 		<ScrollView>
 			<StackLayout>
-				<!--
+				<Button x:Name="implicitButton" Text="Implicit flow" />
+				<Button x:Name="authorizationCodeButton" Text="Authorization Code flow" />
+				<Button x:Name="getProfileButton" Text="Get your profile data" IsEnabled="false" />
+				<Button x:Name="refreshButton" Text="Refresh Tokens" IsEnabled="false" />
+				<Label x:Name="nameText" Text="" HorizontalTextAlignment="Center" />
+				<Label x:Name="emailText" Text="" HorizontalTextAlignment="Center" />
+				<Image x:Name="profileImage" WidthRequest="300" HeightRequest="200" />
+                <!--
                 -->
-				<Picker 
+                <Picker 
                     x:Name="pickerUIFrameworks" 
-				    ItemsSource="{Binding UIFrameworks}" 
-					SelectedIndexChanged="pickerUIFrameworks_SelectedIndexChanged"
-				    />
+                    ItemsSource="{Binding UIFrameworks}" 
+                    SelectedIndexChanged="pickerUIFrameworks_SelectedIndexChanged"
+                    />
                 <Picker 
                     x:Name="pickerFormsImplementations" 
-				    ItemsSource="{Binding FormsImplementations}" 
+                    ItemsSource="{Binding FormsImplementations}" 
                     SelectedIndex="{Binding pickerFormsImplementations_SelectedIndex}"
-				    />
+                    />
                 <OnPlatform x:TypeArguments="View">
                     <OnPlatform.iOS>
                         <Picker 
@@ -39,13 +46,12 @@
                         <Label Text="Android" />
                     </OnPlatform.Android>
                 </OnPlatform>
-				<Button x:Name="implicitButton" Text="Implicit flow" />
-				<Button x:Name="authorizationCodeButton" Text="Authorization Code flow" />
-				<Button x:Name="getProfileButton" Text="Get your profile data" IsEnabled="false" />
-				<Button x:Name="refreshButton" Text="Refresh Tokens" IsEnabled="false" />
-				<Label x:Name="nameText" Text="" HorizontalTextAlignment="Center" />
-				<Label x:Name="emailText" Text="" HorizontalTextAlignment="Center" />
-				<Image x:Name="profileImage" WidthRequest="300" HeightRequest="300" />
+                <Button 
+                    x:Name="buttonGoogle" 
+                    Text="Google OAuth" 
+                    />
+
+				
 			</StackLayout>
 		</ScrollView>
 		<Label x:Name="statusText" Grid.Row="1" HorizontalTextAlignment="Center" />

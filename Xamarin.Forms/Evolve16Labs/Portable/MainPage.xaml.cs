@@ -46,6 +46,8 @@ namespace ComicBook
                       iOS: () => this.pickerViews.SelectedIndex = 0
                   );
 
+            buttonGoogle.Clicked += ButtonGoogle_Clicked;
+
             return;
         }
 
@@ -69,7 +71,7 @@ namespace ComicBook
             if (forms_implementation_renderers)
             {
                 // Renderers Implementaion
-                // Navigation.PushModalAsync(new Xamarin.Auth.XamarinForms.AuthenticatorPage());
+                //Navigation.PushModalAsync(new Xamarin.Auth.XamarinForms.AuthenticatorPage());
             }
             else
             {
@@ -84,7 +86,7 @@ namespace ComicBook
 
         void AuthorizationCodeButtonClicked(object sender, EventArgs e)
         {
-            var authenticator = new OAuth2Authenticator
+            OAuth2Authenticator authenticator = new OAuth2Authenticator
                 (
                     ServerInfo.ClientId,
                     ServerInfo.ClientSecret,
@@ -99,8 +101,22 @@ namespace ComicBook
             authenticator.Completed += OnAuthCompleted;
             authenticator.Error += OnAuthError;
 
-            var presenter = new Xamarin.Auth.Presenters.OAuthLoginPresenter();
-            presenter.Login(authenticator);
+            AuthenticationState.Authenticator = authenticator;
+
+            if (forms_implementation_renderers)
+            {
+                // Renderers Implementaion
+                //Navigation.PushModalAsync(new Xamarin.Auth.XamarinForms.AuthenticatorPage());
+            }
+            else
+            {
+                // Presenters Implementation
+                Xamarin.Auth.Presenters.OAuthLoginPresenter presenter = null;
+                presenter = new Xamarin.Auth.Presenters.OAuthLoginPresenter();
+                presenter.Login(authenticator);
+            }
+
+            return;
         }
 
         async void GetProfileButtonClicked(object sender, EventArgs e)
@@ -239,10 +255,10 @@ namespace ComicBook
         public List<string> UIFrameworks => _UIFrameworks;
 
         List<string> _UIFrameworks = new List<string>()
-		{
-			"Native UI (Custom Tabs or SFSafariViewController",
-			"Embedded WebView",
-		};
+        {
+            "Native UI (Custom Tabs or SFSafariViewController",
+            "Embedded WebView",
+        };
 
         bool native_ui = true;
 
@@ -271,16 +287,17 @@ namespace ComicBook
         public List<string> FormsImplementations => _FormsImplementations;
 
         List<string> _FormsImplementations = new List<string>()
-		{
-			"Presenters (Dependency Service/Injection)",
-			"Custom Renderers",
-		};
+        {
+            "Presenters (Dependency Service/Injection)",
+            "Custom Renderers",
+        };
 
         protected void pickerFormsImplementations_SelectedIndex(object sender, System.EventArgs e)
         {
             Picker p = sender as Picker;
 
             string implementation = ((string)p.SelectedItem);
+
             if (implementation == "Presenters (Dependency Service/Injection)")
             {
                 forms_implementation_renderers = false;
@@ -293,7 +310,7 @@ namespace ComicBook
             {
                 throw new ArgumentException("FormsImplementation error");
             }
-            
+
             return;
         }
 
@@ -302,10 +319,10 @@ namespace ComicBook
         public List<string> Views => _Views;
 
         List<string> _Views = new List<string>()
-		{
-			"UIWebView",
-			"WKWebView",
-		};
+        {
+            "UIWebView",
+            "WKWebView",
+        };
 
         protected void pickerViews_SelectedIndex(object sender, System.EventArgs e)
         {
@@ -326,7 +343,118 @@ namespace ComicBook
                 throw new ArgumentException("WebView error");
             }
 
-        	return;
+            return;
         }
+
+        Xamarin.Auth.OAuth2Authenticator authenticator = null;
+
+        protected void ButtonGoogle_Clicked(object sender, EventArgs e)
+        {
+            authenticator
+                 = new Xamarin.Auth.OAuth2Authenticator
+                 (
+                     clientId:
+                         new Func<string>
+                            (
+                                 () =>
+                                 {
+                                     string retval_client_id = "oops something is wrong!";
+
+                                    // some people are sending the same AppID for google and other providers
+                                    // not sure, but google (and others) might check AppID for Native/Installed apps
+                                    // Android and iOS against UserAgent in request from 
+                                    // CustomTabs and SFSafariViewContorller
+                                    // TODO: send deliberately wrong AppID and note behaviour for the future
+                                    // fitbit does not care - server side setup is quite liberal
+                                    switch (Xamarin.Forms.Device.RuntimePlatform)
+                                     {
+                                         case "Android":
+                                             retval_client_id = "1093596514437-d3rpjj7clslhdg3uv365qpodsl5tq4fn.apps.googleusercontent.com";
+                                             break;
+                                         case "iOS":
+                                             retval_client_id = "1093596514437-cajdhnien8cpenof8rrdlphdrboo56jh.apps.googleusercontent.com";
+                                             break;
+                                     }
+                                     return retval_client_id;
+                                 }
+                           ).Invoke(),
+                     clientSecret: null,   // null or ""
+                     authorizeUrl: new Uri("https://accounts.google.com/o/oauth2/auth"),
+                     accessTokenUrl: new Uri("https://www.googleapis.com/oauth2/v4/token"),
+                     redirectUrl:
+                         new Func<Uri>
+                            (
+                                 () =>
+                                 {
+
+                                     string uri = null;
+
+                                    // some people are sending the same AppID for google and other providers
+                                    // not sure, but google (and others) might check AppID for Native/Installed apps
+                                    // Android and iOS against UserAgent in request from 
+                                    // CustomTabs and SFSafariViewContorller
+                                    // TODO: send deliberately wrong AppID and note behaviour for the future
+                                    // fitbit does not care - server side setup is quite liberal
+                                    switch (Xamarin.Forms.Device.RuntimePlatform)
+                                     {
+                                         case "Android":
+                                             uri =
+                                                 "com.xamarin.traditional.standard.samples.oauth.providers.android:/oauth2redirect"
+                                                 //"com.googleusercontent.apps.1093596514437-d3rpjj7clslhdg3uv365qpodsl5tq4fn:/oauth2redirect"
+                                                 ;
+                                             break;
+                                         case "iOS":
+                                             uri =
+                                                 "com.xamarin.traditional.standard.samples.oauth.providers.ios:/oauth2redirect"
+                                                 //"com.googleusercontent.apps.1093596514437-cajdhnien8cpenof8rrdlphdrboo56jh:/oauth2redirect"
+                                                 ;
+                                             break;
+                                     }
+
+                                     return new Uri(uri);
+                                 }
+                             ).Invoke(),
+                     scope:
+                                  //"profile"
+                                  "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.login"
+                                  ,
+                     getUsernameAsync: null,
+                     isUsingNativeUI: native_ui
+                 )
+                 {
+                     AllowCancel = true,
+                 };
+
+            authenticator.Completed +=
+                (s, ea) =>
+                    {
+                        return;
+                    };
+
+            authenticator.Error +=
+                (s, ea) =>
+                    {
+                        return;
+                    };
+
+            AuthenticationState.Authenticator = authenticator;
+
+            if (forms_implementation_renderers)
+            {
+                // Renderers Implementaion
+                //Navigation.PushModalAsync(new Xamarin.Auth.XamarinForms.AuthenticatorPage());
+            }
+            else
+            {
+                // Presenters Implementation
+                Xamarin.Auth.Presenters.OAuthLoginPresenter presenter = null;
+                presenter = new Xamarin.Auth.Presenters.OAuthLoginPresenter();
+                presenter.Login(authenticator);
+            }
+
+            return;
+        }
+
+
     }
 }
