@@ -5,6 +5,7 @@ using Xamarin.Auth;
 using System.Linq;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
+using ComicBookPCL;
 
 namespace ComicBook
 {
@@ -40,26 +41,45 @@ namespace ComicBook
             this.pickerUIFrameworks.SelectedIndex = 0;
             this.pickerFormsImplementations.SelectedIndex = 0;
 
+            Device.OnPlatform
+                  (
+                      iOS: () => this.pickerViews.SelectedIndex = 0
+                  );
+
             return;
         }
 
         void ImplicitButtonClicked(object sender, EventArgs e)
         {
-            var authenticator = new OAuth2Authenticator
+            OAuth2Authenticator authenticator = new OAuth2Authenticator
                 (
                     ServerInfo.ClientId,
                     Scope,
                     ServerInfo.AuthorizationEndpoint,
                     ServerInfo.RedirectionEndpoint,
                     null,
-                    isUsingNativeUI: true
+                    isUsingNativeUI: native_ui
                 );
 
             authenticator.Completed += OnAuthCompleted;
             authenticator.Error += OnAuthError;
 
-            var presenter = new Xamarin.Auth.Presenters.OAuthLoginPresenter();
-            presenter.Login(authenticator);
+            AuthenticationState.Authenticator = authenticator;
+
+            if (forms_implementation_renderers)
+            {
+                // Renderers Implementaion
+                // Navigation.PushModalAsync(new Xamarin.Auth.XamarinForms.AuthenticatorPage());
+            }
+            else
+            {
+                // Presenters Implementation
+                Xamarin.Auth.Presenters.OAuthLoginPresenter presenter = null;
+                presenter = new Xamarin.Auth.Presenters.OAuthLoginPresenter();
+                presenter.Login(authenticator);
+            }
+
+            return;
         }
 
         void AuthorizationCodeButtonClicked(object sender, EventArgs e)
