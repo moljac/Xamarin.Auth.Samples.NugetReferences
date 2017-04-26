@@ -224,14 +224,6 @@ namespace ComicBook
 			"Embedded WebView",
 		};
 
-        public List<string> FormsImplementations => _FormsImplementations;
-
-        List<string> _FormsImplementations = new List<string>()
-		{
-			"Presenters (Dependency Service/Injection)",
-			"Custom Renderers",
-		};
-
         bool native_ui = true;
 
         protected void pickerUIFrameworks_SelectedIndexChanged(object sender, System.EventArgs e)
@@ -254,10 +246,38 @@ namespace ComicBook
             return;
         }
 
+        bool forms_implementation_renderers = false;
+
+        public List<string> FormsImplementations => _FormsImplementations;
+
+        List<string> _FormsImplementations = new List<string>()
+		{
+			"Presenters (Dependency Service/Injection)",
+			"Custom Renderers",
+		};
+
         protected void pickerFormsImplementations_SelectedIndex(object sender, System.EventArgs e)
         {
+            Picker p = sender as Picker;
+
+            string implementation = ((string)p.SelectedItem);
+            if (implementation == "Presenters (Dependency Service/Injection)")
+            {
+                forms_implementation_renderers = false;
+            }
+            else if (implementation == "Custom Renderers")
+            {
+                forms_implementation_renderers = true;
+            }
+            else
+            {
+                throw new ArgumentException("FormsImplementation error");
+            }
+            
             return;
         }
+
+        string web_view = null;
 
         public List<string> Views => _Views;
 
@@ -269,6 +289,23 @@ namespace ComicBook
 
         protected void pickerViews_SelectedIndex(object sender, System.EventArgs e)
         {
+            Picker p = sender as Picker;
+
+            web_view = ((string)p.SelectedItem);
+
+            if (web_view == "UIWebView")
+            {
+                DependencyService.Get<ComicBookPCL.IWebViewConfiguration>().IsUsingWKWebView = false;
+            }
+            else if (web_view == "WKWebView")
+            {
+                DependencyService.Get<ComicBookPCL.IWebViewConfiguration>().IsUsingWKWebView = true;
+            }
+            else
+            {
+                throw new ArgumentException("WebView error");
+            }
+
         	return;
         }
     }
