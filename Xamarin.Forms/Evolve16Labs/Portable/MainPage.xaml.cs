@@ -7,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 using ComicBookPCL;
 using System.Text;
+using Xamarin.Auth.XamarinForms;
 
 namespace ComicBook
 {
@@ -335,11 +336,11 @@ namespace ComicBook
 
             if (web_view == "UIWebView")
             {
-                DependencyService.Get<ComicBookPCL.IWebViewConfiguration>().IsUsingWKWebView = false;
+                DependencyService.Get<IEmbeddedWebViewConfiguration>().IsUsingWKWebView = false;
             }
             else if (web_view == "WKWebView")
             {
-                DependencyService.Get<ComicBookPCL.IWebViewConfiguration>().IsUsingWKWebView = true;
+                DependencyService.Get<IEmbeddedWebViewConfiguration>().IsUsingWKWebView = true;
             }
             else
             {
@@ -363,13 +364,13 @@ namespace ComicBook
                                  {
                                      string retval_client_id = "oops something is wrong!";
 
-                                    // some people are sending the same AppID for google and other providers
-                                    // not sure, but google (and others) might check AppID for Native/Installed apps
-                                    // Android and iOS against UserAgent in request from 
-                                    // CustomTabs and SFSafariViewContorller
-                                    // TODO: send deliberately wrong AppID and note behaviour for the future
-                                    // fitbit does not care - server side setup is quite liberal
-                                    switch (Xamarin.Forms.Device.RuntimePlatform)
+                                     // some people are sending the same AppID for google and other providers
+                                     // not sure, but google (and others) might check AppID for Native/Installed apps
+                                     // Android and iOS against UserAgent in request from 
+                                     // CustomTabs and SFSafariViewContorller
+                                     // TODO: send deliberately wrong AppID and note behaviour for the future
+                                     // fitbit does not care - server side setup is quite liberal
+                                     switch (Xamarin.Forms.Device.RuntimePlatform)
                                      {
                                          case "Android":
                                              retval_client_id = "1093596514437-d3rpjj7clslhdg3uv365qpodsl5tq4fn.apps.googleusercontent.com";
@@ -392,13 +393,13 @@ namespace ComicBook
 
                                      string uri = null;
 
-                                    // some people are sending the same AppID for google and other providers
-                                    // not sure, but google (and others) might check AppID for Native/Installed apps
-                                    // Android and iOS against UserAgent in request from 
-                                    // CustomTabs and SFSafariViewContorller
-                                    // TODO: send deliberately wrong AppID and note behaviour for the future
-                                    // fitbit does not care - server side setup is quite liberal
-                                    switch (Xamarin.Forms.Device.RuntimePlatform)
+                                     // some people are sending the same AppID for google and other providers
+                                     // not sure, but google (and others) might check AppID for Native/Installed apps
+                                     // Android and iOS against UserAgent in request from 
+                                     // CustomTabs and SFSafariViewContorller
+                                     // TODO: send deliberately wrong AppID and note behaviour for the future
+                                     // fitbit does not care - server side setup is quite liberal
+                                     switch (Xamarin.Forms.Device.RuntimePlatform)
                                      {
                                          case "Android":
                                              uri =
@@ -432,14 +433,16 @@ namespace ComicBook
                 (s, ea) =>
                     {
                         StringBuilder sb = new StringBuilder();
-                        sb.Append("Token = ").AppendLine($"{ea.Account.Properties["access_token"]}");
- 
-                        DisplayAlert
-                                (
-                                    "Authentication Completed",
-                                    sb.ToString(),
-                                    "OK"            
-                                );
+
+                        if (ea.Account != null && ea.Account.Properties != null)
+                        {
+                            sb.Append("Token = ").AppendLine($"{ea.Account.Properties["access_token"]}");
+                        }
+                        else
+                        {
+                            sb.Append("Not authenticated ").AppendLine($"Account.Properties does not exist");
+                        }
+
                         return;
                     };
 
@@ -450,10 +453,10 @@ namespace ComicBook
                         sb.Append("Error = ").AppendLine($"{ea.Message}");
 
                         DisplayAlert
-								(
+                                (
                                     "Authentication Error",
-									sb.ToString(),
-                                    "OK"            
+                                    sb.ToString(),
+                                    "OK"
                                 );
                         return;
                     };
@@ -463,7 +466,7 @@ namespace ComicBook
             if (forms_implementation_renderers)
             {
                 // Renderers Implementaion
-                //Navigation.PushModalAsync(new Xamarin.Auth.XamarinForms.AuthenticatorPage());
+                Navigation.PushModalAsync(new Xamarin.Auth.XamarinForms.AuthenticatorPage());
             }
             else
             {
