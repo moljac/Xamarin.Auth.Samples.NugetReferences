@@ -6,6 +6,7 @@ using System.Linq;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 using ComicBookPCL;
+using System.Text;
 
 namespace ComicBook
 {
@@ -269,10 +270,12 @@ namespace ComicBook
             if (((string)p.SelectedItem).Equals("Native UI (Custom Tabs or SFSafariViewController"))
             {
                 native_ui = true;
+                pickerViews.IsEnabled = false;
             }
             else if (((string)p.SelectedItem).Equals("Embedded WebView"))
             {
                 native_ui = false;
+                pickerViews.IsEnabled = true;
             }
             else
             {
@@ -428,12 +431,30 @@ namespace ComicBook
             authenticator.Completed +=
                 (s, ea) =>
                     {
+                        StringBuilder sb = new StringBuilder();
+                        sb.Append("Token = ").AppendLine($"{ea.Account.Properties["access_token"]}");
+ 
+                        DisplayAlert
+                                (
+                                    "Authentication Completed",
+                                    sb.ToString(),
+                                    "OK"            
+                                );
                         return;
                     };
 
             authenticator.Error +=
                 (s, ea) =>
                     {
+                        StringBuilder sb = new StringBuilder();
+                        sb.Append("Error = ").AppendLine($"{ea.Message}");
+
+                        DisplayAlert
+								(
+                                    "Authentication Error",
+									sb.ToString(),
+                                    "OK"            
+                                );
                         return;
                     };
 
