@@ -443,6 +443,13 @@ namespace ComicBook
                             sb.Append("Not authenticated ").AppendLine($"Account.Properties does not exist");
                         }
 
+                        DisplayAlert
+								(
+                                    "Authentication Results",
+									sb.ToString(),
+                                    "OK"
+                                );
+
                         return;
                     };
 
