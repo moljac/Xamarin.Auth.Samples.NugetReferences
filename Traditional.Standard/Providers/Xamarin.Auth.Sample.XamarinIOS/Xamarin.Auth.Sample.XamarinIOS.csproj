@@ -23,13 +23,14 @@
     <ConsolePause>false</ConsolePause>
     <MtouchArch>i386, x86_64</MtouchArch>
     <MtouchDebug>True</MtouchDebug>
-    <MtouchProfiling>True</MtouchProfiling>
+    <MtouchProfiling>false</MtouchProfiling>
     <MtouchSdkVersion>
     </MtouchSdkVersion>
     <MtouchLink>None</MtouchLink>
     <MtouchI18n>
     </MtouchI18n>
     <CodesignKey>iPhone Developer</CodesignKey>
+<CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>full</DebugType>
@@ -40,6 +41,8 @@
     <MtouchArch>i386</MtouchArch>
     <ConsolePause>false</ConsolePause>
     <MtouchLink>None</MtouchLink>
+<CodesignKey>iPhone Developer</CodesignKey>
+<CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -59,7 +62,7 @@
     </MtouchI18n>
     <MtouchSdkVersion>
     </MtouchSdkVersion>
-    <CodesignProvision>1f6911f7-09cf-4e1b-a568-7ed776dfa6d4</CodesignProvision>
+    <CodesignProvision>iOS Team Provisioning Profile: *</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>
@@ -129,7 +132,7 @@
       <HintPath>..\packages\Validation.2.4.15\lib\netstandard1.3\Validation.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Auth">
-      <HintPath>..\packages\Xamarin.Auth.1.5.0-alpha-09\lib\Xamarin.iOS10\Xamarin.Auth.dll</HintPath>
+      <HintPath>..\packages\Xamarin.Auth.1.5.0-alpha-10\lib\Xamarin.iOS10\Xamarin.Auth.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
