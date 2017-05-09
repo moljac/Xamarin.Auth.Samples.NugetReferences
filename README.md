@@ -14,6 +14,16 @@ repo:
 
 https://github.com/xamarin/Xamarin.Auth/tree/portable-bait-and-switch/samples/Traditional.Standard/references02nuget/Providers
 
+## Documentation
+
+Documenation in this repo is in working stage and is published to the main repo.
+
+Current docs are based on component docs and will be included in the component.
+
+*	[./component-docs/GettingStarted.md](./component-docs/GettingStarted.md)	
+*	[./component-docs/Details.md](./component-docs/Details.md)	
+
+
 ## Samples Technology
 
 Samples are available as
@@ -50,10 +60,7 @@ Xamarin.Auth official repo together with samples:
 *	[./docs/Details.md](./docs/Details.md)		
 
 
-
 ## Setup
-
-
 
 
 ## Installing nugets for lazy butts like me
@@ -98,49 +105,6 @@ numerous OAuth providers:
 	 
 	 
 	 
-### NativeUI samples Xamarin.Forms 
-
-Xamarin.Forms with CustomRenderers implementation of Xamarin.Auth
-
-Samples.NativeUI
-
-
-#### Installation
-
-    Get-Project Samples.NativeUI            | Install-Package Xamarin.Auth
-    Get-Project Samples.NativeUI.Android    | Install-Package Xamarin.Auth
-    Get-Project Samples.NativeUI.iOS        | Install-Package Xamarin.Auth
-    Get-Project Samples.NativeUI.UWP        | Install-Package Xamarin.Auth
-    Get-Project Samples.NativeUI            | Install-Package Xamarin.Auth.XamarinForms
-    Get-Project Samples.NativeUI.Android    | Install-Package Xamarin.Auth.XamarinForms
-    Get-Project Samples.NativeUI.iOS        | Install-Package Xamarin.Auth.XamarinForms
-    Get-Project Samples.NativeUI.UWP        | Install-Package Xamarin.Auth.XamarinForms
-
-
-    Get-Project Samples.NativeUI            | Update-Package Xamarin.Auth
-    Get-Project Samples.NativeUI.Android    | Update-Package Xamarin.Auth
-    Get-Project Samples.NativeUI.iOS        | Update-Package Xamarin.Auth
-    Get-Project Samples.NativeUI.UWP        | Update-Package Xamarin.Auth
-    Get-Project Samples.NativeUI            | Update-Package Xamarin.Auth.XamarinForms
-    Get-Project Samples.NativeUI.Android    | Update-Package Xamarin.Auth.XamarinForms
-    Get-Project Samples.NativeUI.iOS        | Update-Package Xamarin.Auth.XamarinForms
-    Get-Project Samples.NativeUI.UWP        | Update-Package Xamarin.Auth.XamarinForms
-
-
-    Get-Project Samples.NativeUI            | Update-Package -IncludePrerelease Xamarin.Auth
-    Get-Project Samples.NativeUI.Android    | Update-Package -IncludePrerelease Xamarin.Auth
-    Get-Project Samples.NativeUI.iOS        | Update-Package -IncludePrerelease Xamarin.Auth
-    Get-Project Samples.NativeUI.UWP        | Update-Package -IncludePrerelease Xamarin.Auth
-    Get-Project Samples.NativeUI            | Update-Package -IncludePrerelease Xamarin.Auth.XamarinForms
-    Get-Project Samples.NativeUI.Android    | Update-Package -IncludePrerelease Xamarin.Auth.XamarinForms
-    Get-Project Samples.NativeUI.iOS        | Update-Package -IncludePrerelease Xamarin.Auth.XamarinForms
-    Get-Project Samples.NativeUI.UWP        | Update-Package -IncludePrerelease Xamarin.Auth.XamarinForms
-
-	
-### Evolve16 samples - Xamarin.Forms 
-
-Xamarin.Forms with Presenters (without CustomRenderers) implementation of Xamarin.Auth
-
 
 #### Usage Init
 

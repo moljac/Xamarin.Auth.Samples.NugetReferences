@@ -20,11 +20,32 @@ Those steps and (substeps) which will be used in detailed documentation
 
 ## 1. Initialization
 
-Those steps will be 
+### Server Side 
+
+### Client (mobile) application initialization
+
+Initialization is based on Oauth Grant (flow) in use which is determined by OAuth 
+provider and it's server side setup.
+
+Initialization is performed thorugh Authenticator constructors for:
+
+*	OAuth2 Implicit Grant flow with parameters:		
+	*	clientId		
+	*	scope		
+	*	authorizeUrl		
+	*	redirectUrl		
+*	OAuth2 Authorization Code Grant flow with parameters:		
+	*	clientId		
+	*	scope		
+	*	authorizeUrl		
+	*	redirectUrl	
+	*	clientSecret
+
+More about OAuth can be found here: []().
 
 ### 1.1. Create and configure an authenticator
 
-Let's authenticate a user to access Facebook:
+Let's authenticate a user to access Facebook which uses OAuth2 Implicit flow:
 
 ```csharp
 using Xamarin.Auth;
