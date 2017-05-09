@@ -15,8 +15,7 @@ OAuth flow (process) is setup in 5 major steps:
 5.	Triggering Events based on OAuth data 
 
 Those steps and (substeps) which will be used in detailed documentation 
-[./Details.md](./Details.md) and WalkThorugh docs for both Android and
-iOS.
+[./Details.md](./Details.md).
 
 
 ## 1. Initialization
@@ -30,7 +29,7 @@ Let's authenticate a user to access Facebook:
 ```csharp
 using Xamarin.Auth;
 // ...
-var auth = new OAuth2Authenticator 
+OAuth2Authenticator auth = new OAuth2Authenticator 
     (
         clientId: "App ID from https://developers.facebook.com/apps",
         scope: "",

@@ -1,7 +1,6 @@
 # Server Setup OAuth Provider Google 
 
 https://developers.google.com/identity/protocols/OAuth2InstalledApp#choosingredirecturi
-https://developers.google.com/identity/protocols/OAuth2InstalledApp#choosingredirecturi
 https://developers.google.com/identity/protocols/OAuth2InstalledApp#request-parameter-redirect_uri
 
 
