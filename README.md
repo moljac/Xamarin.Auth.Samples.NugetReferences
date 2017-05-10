@@ -23,6 +23,16 @@ Current docs are based on component docs and will be included in the component.
 *	[./component-docs/GettingStarted.md](./component-docs/GettingStarted.md)	
 *	[./component-docs/Details.md](./component-docs/Details.md)	
 
+*	github issues		
+	[https://github.com/xamarin/Xamarin.Auth/issues](https://github.com/xamarin/Xamarin.Auth/issues)		
+*	Xamarin forums		
+	https://forums.xamarin.com/search?adv=&search=auth&title=&author=&cat=all&tags=&discussion_d=1&discussion_question=1&comment_c=1&comment_answer=1&within=1+day&date=]			
+*	stackoverflow		
+	[http://stackoverflow.com/search?tab=votes&q=xamarin.auth](http://stackoverflow.com/search?tab=votes&q=xamarin.auth)
+	
+# Reporting Bugs and Issues
+
+	
 
 ## Samples Technology
 

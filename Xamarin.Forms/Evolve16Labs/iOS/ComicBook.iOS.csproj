@@ -81,6 +81,14 @@
     <Reference Include="Validation, Version=2.4.0.0, Culture=neutral, PublicKeyToken=2fc06f0d701809a7, processorArchitecture=MSIL">
       <HintPath>..\packages\Validation.2.4.15\lib\netstandard1.3\Validation.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin.Auth, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Auth.1.5.0-alpha-13\lib\Xamarin.iOS10\Xamarin.Auth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xamarin.Auth.XamarinForms, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Auth.XamarinForms.1.5.0-alpha-13\lib\Xamarin.iOS10\Xamarin.Auth.XamarinForms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Xamarin.Forms.2.3.4.231\lib\Xamarin.iOS10\Xamarin.Forms.Core.dll</HintPath>
     </Reference>
@@ -113,12 +121,6 @@
     <Reference Include="PInvoke.NCrypt">
       <HintPath>..\packages\PInvoke.NCrypt.0.5.64\lib\portable-net45+win8+wpa81\PInvoke.NCrypt.dll</HintPath>
     </Reference>
-    <Reference Include="Xamarin.Auth">
-      <HintPath>..\packages\Xamarin.Auth.1.5.0-alpha-10\lib\Xamarin.iOS10\Xamarin.Auth.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Auth.XamarinForms">
-      <HintPath>..\packages\Xamarin.Auth.XamarinForms.1.5.0-alpha-10\lib\Xamarin.iOS10\Xamarin.Auth.XamarinForms.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json">
@@ -146,9 +148,7 @@
       <Name>ComicBook</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Xamarin.Auth\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="..\packages\Xamarin.Forms.2.3.4.231\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.4.231\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

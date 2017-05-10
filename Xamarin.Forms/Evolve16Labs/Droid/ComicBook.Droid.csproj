@@ -102,6 +102,14 @@
     <Reference Include="Xamarin.Android.Support.v7.MediaRouter">
       <HintPath>..\packages\Xamarin.Android.Support.v7.MediaRouter.25.1.1\lib\MonoAndroid70\Xamarin.Android.Support.v7.MediaRouter.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin.Auth, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Auth.1.5.0-alpha-13\lib\MonoAndroid10\Xamarin.Auth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xamarin.Auth.XamarinForms, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Auth.XamarinForms.1.5.0-alpha-13\lib\MonoAndroid10\Xamarin.Auth.XamarinForms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Xamarin.Forms.2.3.4.231\lib\MonoAndroid10\Xamarin.Forms.Core.dll</HintPath>
     </Reference>
@@ -119,12 +127,6 @@
     </Reference>
     <Reference Include="Xamarin.Android.Support.v4">
       <HintPath>..\packages\Xamarin.Android.Support.v4.25.1.1\lib\MonoAndroid70\Xamarin.Android.Support.v4.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Auth.XamarinForms">
-      <HintPath>..\packages\Xamarin.Auth.XamarinForms.1.5.0-alpha-11\lib\MonoAndroid10\Xamarin.Auth.XamarinForms.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Auth">
-      <HintPath>..\packages\Xamarin.Auth.1.5.0-alpha-11\lib\MonoAndroid10\Xamarin.Auth.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
