@@ -5,15 +5,19 @@ users via OAuth protocol (OAuth1 and OAuth2).
 
 OAuth flow (process) is setup in 5 major steps:
 
-1.  Initialization of Authenticator object      
+0.  Server side setup for OAuth service provider (Google, Facebook)
+1.  Client side initialization of Authenticator object      
     preparing all relevant OAuth Data in Authenticator object
 2.  Creating and optionally customising UI      
-3.  Lunching UI and authenticating user
-4.  Detecting/Fetching/Intercepting URL change - redirect url   
-    and     
-    parsing OAuth data from redirect_url
-5.  Triggering Events based on OAuth data 
-
+3.  Presenting/Lunching UI and authenticating user	
+	3.1	Detecting/Fetching/Intercepting URL change - redirect url and     
+    3.2	Parsing OAuth data from redirect_url
+	3.3 Triggering Events based on OAuth data 
+4.  Using identity 
+	4.1	Using protected resources (making calls)	
+	4.2	Saving account info
+	4.3 Retrieving account info
+  
 Those steps and (substeps) which will be used in detailed documentation 
 [./Details.md](./Details.md).
 
@@ -26,13 +30,14 @@ especially nomenclature (naming).
 
 In general there are 2 common types of "apps", "projects" or "credentials":
 
-1.  Web Application
+1.  server or Web Application
 
-    Web app is considered to be secure, i.e. client_secret is secure and can be stored and  
-    not easily accessed/retrieved by malicious user.
+    Server (Fitbit naming) Web (Google and Facebook terms) application is considered to be 
+    secure, i.e. client_secret is secure and can be stored and not easily accessed/retrieved 
+    by malicious user.
     
-    Web app uses http[s] schemes for redirect_url, because it loads real web page (url-authority
-    can be localhost or real hostname). 
+    Server/Web app uses http[s] schemes for redirect_url, because it loads real web page 
+     - url-authority can be localhost or real hostname (http://xamarin.com).
     
     Xamarin.Auth prior to version 1.4.0 used to support only http[s] url-scheme with real   
     url-authority (existing host, no localhost) and arbitrary url-path. 
@@ -40,16 +45,21 @@ In general there are 2 common types of "apps", "projects" or "credentials":
 2.  Native or Installed (mobile or desktop) apps    
     
     This group is usually divided into Android, iOS, Chrome (javascript) and other (.net)   
-    subtypes. Each subtype can have different setup. Custom schemes can be predefined (generated)       
-    by provider (Google or Facebook) or defined by user (Fitbit).
+    subtypes. Each subtype can have different setup. In most cases developer must submit    
+    for Android package id with SHA1 key and for iOS BundleID. Custom schemes can be predefined 
+    (generated) by provider (Google or Facebook) or defined by user (Fitbit). Generated schemes     
+    are usually based on data submitted (package id, bundle id).
     
-    Xamarin Components Team is working on the doc with minimal info for common used providers and       
-    how to setup server side.
+    Xamarin Components Team is working on the doc with minimal info for common used providers 
+    and how to setup server side.
     
-    Xamarin.Auth implements requirements for native/installed apps since nuget version 1.4.0, but   
-    the API was broken (`GetUI()` returned `System.Object`, so cast was necessary)
+    Xamarin.Auth implements requirements for native/installed apps since nuget version 1.4.0, 
+    but the API was broken (`GetUI()` returned `System.Object`, so cast was necessary).
 
-Server side setup details will be explained in separate document.
+Server side setup details will be explained in separate document 
+
+(./details/setup-server-side-oauth-provider.md)[./details/setup-server-side-oauth-provider.md]  
+
 
 
 ## 1 Client Side Initialization
@@ -59,18 +69,29 @@ by OAuth  provider and it's server side setup.
 
 Initialization is performed thorugh `Authenticator` constructors for:
 
-*   OAuth2 Implicit Grant flow with parameters:     
+### OAuth2 Implicit Grant flow 
+
+With parameters:    
     *   clientId        
     *   scope       
     *   authorizeUrl        
     *   redirectUrl     
-*   OAuth2 Authorization Code Grant flow with parameters:       
-    *   clientId        
+    
+https://github.com/xamarin/Xamarin.Auth/blob/portable-bait-and-switch/source/Xamarin.Auth.LinkSource/OAuth2Authenticator.cs#L162-L191
+    
+### OAuth2 Authorization Code Grant flow 
+
+With parameters:       
+    *   clientId   
+    *   clientSecret
     *   scope       
     *   authorizeUrl        
     *   redirectUrl 
-    *   clientSecret
+    *   accessTokenUrl
 
+https://github.com/xamarin/Xamarin.Auth/blob/portable-bait-and-switch/source/Xamarin.Auth.LinkSource/OAuth2Authenticator.cs#L240-L277
+    
+    
 More about OAuth can be found here: [./details/oauth.md](./details/oauth.md).
 
 ### 1.1 Create and configure an Authenticator
@@ -93,6 +114,7 @@ OAuth2Authenticator auth = new OAuth2Authenticator
         isUsingNativeUI: use_native_ui
     );
 ```
+
 
 Facebook uses OAuth 2.0 authentication, so we create an `OAuth2Authenticator`. 
 Authenticators are responsible for managing the user interface and communicating with 
@@ -189,14 +211,15 @@ SFSafariViewController on iOS) there is extra step needed - cast to appropriate 
 API can be accessed (more in Details).
 
 
-### 2.3 Present the Login UI
+
+## 3 Present/Launch the Login UI
 
 This step is platform specific and it is almost impossible to share it accross platforms.
 
 On Android, user would write the following code to present the UI.
 
 ```csharp
-StartActivity (ui_object);	// ui_object is Android.Content.Intent
+StartActivity (ui_object);  // ui_object is Android.Content.Intent
 // or
 StartActivity (auth.GetUI (this));
 ```
@@ -212,7 +235,9 @@ PresentViewController (auth.GetUI ());
 On Windows [TODO] 
 
 
-## 3. Using identity - Making requests
+## 4 Using identity 
+
+### 4.1 Making requests to protected resources
 
 With obtained access_token (identity) user can now access protected ressources.
 
@@ -222,12 +247,12 @@ to grab the user's info:
 
 ```csharp
 OAuth2Request request = new OAuth2Request 
-							(
-								"GET",
-								 new Uri ("https://graph.facebook.com/me"), 
-								 null, 
-								 eventArgs.Account
-							);
+                            (
+                                "GET",
+                                 new Uri ("https://graph.facebook.com/me"), 
+                                 null, 
+                                 eventArgs.Account
+                            );
 request.GetResponseAsync().ContinueWith 
     (
         t => 
@@ -244,7 +269,7 @@ request.GetResponseAsync().ContinueWith
 ```
 
 
-## 4. Store the account
+### 4.2 Store the account
 
 Xamarin.Auth securely stores `Account` objects so that users don't always have to reauthenticate 
 the user. The `AccountStore` class is responsible for storing `Account` information, backed by 
@@ -276,7 +301,7 @@ This is convenient for services that expire the credentials stored in the accoun
 object.
 
 
-## 5. Retrieve stored accounts
+## 4.3 Retrieve stored accounts
 
 Fetching all `Account` objects stored for a given service is possible with follwoing API:
 
@@ -296,8 +321,9 @@ IEnumerable<Account> accounts = AccountStore.Create ().FindAccountsForService ("
 
 It's that easy.
 
+Windows [TODO]
 
-## 6. Make your own authenticator
+## Extending Xamarin.Auth - Make your own authenticator
 
 Xamarin.Auth includes OAuth 1.0 and OAuth 2.0 authenticators, providing support for thousands 
 of popular services. For services that use traditional username/password authentication, one 
