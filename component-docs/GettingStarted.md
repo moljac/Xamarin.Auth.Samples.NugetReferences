@@ -18,9 +18,7 @@ Those steps and (substeps) which will be used in detailed documentation
 [./Details.md](./Details.md).
 
 
-## 1. Initialization
-
-### 1.1 Server Side 
+## 0 Server Side 
 
 Server side setup of the particular OAuth provider like Google, Facebook or Microsoft Live
 is the source of misunderstandings and errors. This setup differs from provider to provider,
@@ -53,13 +51,13 @@ In general there are 2 common types of "apps", "projects" or "credentials":
 
 Server side setup details will be explained in separate document.
 
-    
-### 1.2 Client (mobile) application initialization
 
-Initialization is based on Oauth Grant (flow) in use which is determined by OAuth 
-provider and it's server side setup.
+## 1 Client Side Initialization
 
-Initialization is performed thorugh Authenticator constructors for:
+Client (mobile) application initialization is based on Oauth Grant (flow) in use which is determined 
+by OAuth  provider and it's server side setup.
+
+Initialization is performed thorugh `Authenticator` constructors for:
 
 *   OAuth2 Implicit Grant flow with parameters:     
     *   clientId        
@@ -73,9 +71,9 @@ Initialization is performed thorugh Authenticator constructors for:
     *   redirectUrl 
     *   clientSecret
 
-More about OAuth can be found here: []().
+More about OAuth can be found here: [./details/oauth.md](./details/oauth.md).
 
-#### 1.2.1 Create and configure an authenticator
+### 1.1 Create and configure an Authenticator
 
 Let's authenticate a user to access Facebook which uses OAuth2 Implicit flow:
 
@@ -103,7 +101,7 @@ authentication services.
 Authenticators take a variety of parameters; in this case, the application's ID, its 
 authorization scope, and Facebook's various service locations are required.
 
-#### 1.2.2 Setup Authentication Event Handlers
+#### 1.2 Setup Authentication Event Handlers
 
 To capture events and information in the OAuth flow simply subscribe to Authenticator
 events (add event handlers):
@@ -146,7 +144,7 @@ auth.Completed += (sender, eventArgs) =>
 };
 ```
 
-## 2. Authenticate the user
+## 2. Create Login UI and authenticate user
 
 While authenticators manage their own UI, it's up to user to initially present the 
 authenticator's UI on the screen. This lets one control how the authentication UI is 
@@ -156,9 +154,10 @@ Before the UI is presented, user needs to start listening to the `Completed` eve
 when the user successfully authenticates or cancels. One can find out if the authentication 
 succeeded by testing the `IsAuthenticated` property of `eventArgs`:
 
-
 All the information gathered from a successful authentication is available in 
 `eventArgs.Account`.
+
+### 2.1 Creating Login UI 
 
 Now, the login UI can be obtained using `GetUI()` method and afterwards login screen is 
 ready to be presented.  
@@ -170,23 +169,48 @@ The `GetUI()` method returns
 *   `System.Type` on WinRT (Windows 8.1 and Windows Phone 8.1)    
 *   `Syste.Uri` on Windows Phone 8.x Silverlight
 
-NOTE: if user does need customizations of the NativeUI (Custom Tabs on Android and/or 
-SFSafariViewController) there is extra step needed - cast to appropriate type, so the   
+Android:
+
+```csharp
+global::Android.Content.Intent ui_object = Auth1.GetUI(this);
+```
+
+iOS:
+
+```csharp
+UIKit.UIViewController ui_object = Auth1.GetUI();
+```
+
+
+### 2.2 Customizing the UI - Native UI [OPTIONAL]
+
+Some users will want to customize appearance of the Native UI (Custom Tabs on Android and/or 
+SFSafariViewController on iOS) there is extra step needed - cast to appropriate type, so the   
 API can be accessed (more in Details).
+
+
+### 2.3 Present the Login UI
+
+This step is platform specific and it is almost impossible to share it accross platforms.
 
 On Android, user would write the following code to present the UI.
 
 ```csharp
+StartActivity (ui_object);	// ui_object is Android.Content.Intent
+// or
 StartActivity (auth.GetUI (this));
 ```
 
 On iOS, one would present UI in following way (with differences fromold API)
 
 ```csharp
+PresentViewController(ui_object, true, null);
+//or
 PresentViewController (auth.GetUI ());
 ```
 
-On Windows 
+On Windows [TODO] 
+
 
 ## 3. Using identity - Making requests
 

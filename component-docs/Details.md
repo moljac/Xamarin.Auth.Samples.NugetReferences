@@ -45,6 +45,10 @@ If there is need for real-time support use Xamarin Chat (community slack team) a
 
 https://xamarinchat.slack.com/messages/C4TD1NHPT/
     
+For those without Xamarin Chat account please visit this page and generate selfinvitation:
+
+https://xamarinchat.herokuapp.com/
+
 
 ## Usage
 
@@ -76,6 +80,11 @@ steps 4. and 5. must be implemented like for App linking (Deep Linking) in:
 User will need to expose Authenticator object via public field or property.
 
 ### 1. Initialization
+
+#### 1.1 Server side setup
+
+
+#### 1.2 
 
 In the initialization step Authenticator object will be created according
 to OAuth flow used and user application OAuth server setup.
@@ -551,26 +560,6 @@ Xamarin.Auth Component support is currently under development. It is "empty shel
 component, i.e. component that uses nuget package as dependency and contains only
 samples, documentation and artwork.
 
-## Changelog
-
-Nuget Version[s]
-
-*   1.4.0.1   
-    2017-03-30
-    supporting:     
-    *   Embedded Browsers (Android WebView and iOS UIWebView)   
-        NOTE: this support will be prohibited by some OAuth providers       
-        DEFAULT 2017-03     
-    *   native UI (Android Custom Tabs and iOS Safari View Controller)      
-        must be explicitly setup in Authenticator constructor!  
-*   1.4.0.0   
-    2017-03-30
-    supporting:     
-    *   Embedded Browsers (Android WebView and iOS UIWebView)   
-        NOTE: this support will be prohibited by some OAuth providers       
-        DEFAULT 2017-03     
-    *   native UI (Android Custom Tabs and iOS Safari View Controller)      
-        must be explicitly setup in Authenticator constructor!  
 
 
 ## Diverse

@@ -1,6 +1,8 @@
 # Change Log and Release Notes
 
-NOTE: 2017-03-20 use nuget until Component is updated
+## Changelog
+
+Nuget Version[s]
 
 ## Curent Version
 
@@ -82,6 +84,11 @@ Component version:
 2017-03-30
 
 *	minor Android fixes
+*   Embedded Browsers (Android WebView and iOS UIWebView)   
+	NOTE: this support will be prohibited by some OAuth providers       
+	DEFAULT 2017-03     
+*   native UI (Android Custom Tabs and iOS Safari View Controller)      
+	must be explicitly setup in Authenticator constructor!  
 
 ### NuGet v.1.4.0	
 
@@ -93,6 +100,10 @@ Component version:
 *   native UI (Android Custom Tabs and iOS Safari View Controller)      
 	must be explicitly setup in Authenticator constructor!  
 
+NOTE: 2017-03-20 use nuget until Component is updated
+	
+	
+	
 ### NuGet v.1.3.2.6
 
 *	Xamarin.Core (Common)
