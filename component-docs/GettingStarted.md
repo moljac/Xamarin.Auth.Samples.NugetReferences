@@ -3,19 +3,41 @@
 Xamarin.Auth is a cross platform library that helps developers authenticate 
 users via OAuth protocol (OAuth1 and OAuth2). 
 
-OAuth flow (process) is setup in 5 major steps:
+OAuth flow (process) is setup in 4 major steps:
 
 0.  Server side setup for OAuth service provider (Google, Facebook)
+
 1.  Client side initialization of Authenticator object      
-    preparing all relevant OAuth Data in Authenticator object
+    This step prepares all relevant OAuth Data in Authenticator object (client_id,
+	redirect_url, client_secret, OAuth provider's endpoints etc)
+
 2.  Creating and optionally customising UI      
+
 3.  Presenting/Lunching UI and authenticating user	
-	1.	Detecting/Fetching/Intercepting URL change - redirect url and     
+
+	1.	Detecting/Fetching/Intercepting URL change - redirect_url and  
+
+		This substep is step needed for NativeUI and requires that custom scheme
+		registration together for redirect_url intercepting mechanism. This step	
+		is actually App Linking (Deep Linking) concept in mobile applications.
+
     2.	Parsing OAuth data from redirect_url
+
+		In order to obtain OAuth data returned redirect_url must be parsed and the	
+		best way is to let Xamarin.Auth do it automatically by calling `OnPageLoading()`	
+		which will parse redirect_url and trigger events based on returned data.
+		
 	3.	Triggering Events based on OAuth data 
+	
+		`OnPageLoading()` method of the Authenticator will parse OAuth data and raise	
+		Completed or Error events for user of the Xamarin.Auth.
+
 4.  Using identity 
+
 	1.	Using protected resources (making calls)	
+	
 	2.	Saving account info
+	
 	3.	Retrieving account info
   
 Those steps and (substeps) which will be used in detailed documentation 
