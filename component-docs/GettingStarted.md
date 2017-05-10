@@ -24,13 +24,12 @@ OAuth flow (process) is setup in 4 major steps:
     2.	Parsing OAuth data from redirect_url
 
 		In order to obtain OAuth data returned redirect_url must be parsed and the	
-		best way is to let Xamarin.Auth do it automatically by calling `OnPageLoading()`	
-		which will parse redirect_url and trigger events based on returned data.
+		best way is to let Xamarin.Auth do it automatically by parsing redirect_url 
 		
 	3.	Triggering Events based on OAuth data 
 	
-		`OnPageLoading()` method of the Authenticator will parse OAuth data and raise	
-		Completed or Error events for user of the Xamarin.Auth.
+		Parsing subsytem of the Authenticator will parse OAuth data and raise	
+		appropriate events based on returned data
 
 4.  Using identity 
 
