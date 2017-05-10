@@ -28,11 +28,14 @@ especially nomenclature (naming).
 
 In general there are 2 common types of "apps", "projects" or "credentials":
 
-1.	Web Application 		
+1.	Web Application
+
 	Web app is considered to be secure, i.e. client_secret is secure and can be stored and	
-	not easily accessed/retrieved by malicious user.		
+	not easily accessed/retrieved by malicious user.
+	
 	Web app uses http[s] schemes for redirect_url, because it loads real web page (url-authority
-	can be localhost or real hostname).			
+	can be localhost or real hostname).	
+	
 	Xamarin.Auth prior to version 1.4.0 used to support only http[s] url-scheme with real 	
 	url-authority (existing host, no localhost) and arbitrary url-path. 
 	
@@ -41,8 +44,10 @@ In general there are 2 common types of "apps", "projects" or "credentials":
 	This group is usually divided into Android, iOS, Chrome (javascript) and other (.net) 	
 	subtypes. Each subtype can have different setup. Custom schemes can be predefined (generated)		
 	by provider (Google or Facebook) or defined by user (Fitbit).
+	
 	Xamarin Components Team is working on the doc with minimal info for common used providers and		
-	how to setup server side.		
+	how to setup server side.
+	
 	Xamarin.Auth implements requirements for native/installed apps since nuget version 1.4.0, but	
 	the API was broken (`GetUI()` returned `System.Object`, so cast was necessary)
 
