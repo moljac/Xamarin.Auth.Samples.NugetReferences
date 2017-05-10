@@ -54,7 +54,7 @@ In general there are 2 common types of "apps", "projects" or "credentials":
 Server side setup details will be explained in separate document.
 
 	
-### Client (mobile) application initialization
+### 1.2 Client (mobile) application initialization
 
 Initialization is based on Oauth Grant (flow) in use which is determined by OAuth 
 provider and it's server side setup.
@@ -75,7 +75,7 @@ Initialization is performed thorugh Authenticator constructors for:
 
 More about OAuth can be found here: []().
 
-### 1.1. Create and configure an authenticator
+#### 1.2.1 Create and configure an authenticator
 
 Let's authenticate a user to access Facebook which uses OAuth2 Implicit flow:
 
@@ -103,7 +103,7 @@ authentication services.
 Authenticators take a variety of parameters; in this case, the application's ID, its 
 authorization scope, and Facebook's various service locations are required.
 
-### 1.2. Setup Authentication Event Handlers
+#### 1.2.2 Setup Authentication Event Handlers
 
 To capture events and information in the OAuth flow simply subscribe to Authenticator
 events (add event handlers):
@@ -148,89 +148,61 @@ auth.Completed += (sender, eventArgs) =>
 
 ## 2. Authenticate the user
 
-While authenticators manage their own UI, it's up to you to initially present the 
-authenticator's UI on the screen. This lets you control how the authentication UI is 
+While authenticators manage their own UI, it's up to user to initially present the 
+authenticator's UI on the screen. This lets one control how the authentication UI is 
 displayed–modally, in navigation controllers, in popovers, etc.
 
-Before we present the UI, we need to start listening to the `Completed` event which fires 
-when the user successfully authenticates or cancels. You can find out if the authentication 
+Before the UI is presented, user needs to start listening to the `Completed` event which fires 
+when the user successfully authenticates or cancels. One can find out if the authentication 
 succeeded by testing the `IsAuthenticated` property of `eventArgs`:
 
 
 All the information gathered from a successful authentication is available in 
 `eventArgs.Account`.
 
-Now we're ready to present the login UI 
+Now, the login UI can be obtained using `GetUI()` method and afterwards login screen is 
+ready to be presented.  
 
-The `GetUI` method used to return ("old" - Embedded Browser API)
+The `GetUI()` method returns 
 
-*   `UINavigationControllers` on iOS, and 
-*   `Intents` on Android.  
+*   `UINavigationController` on iOS, and 
+*   `Intent` on Android.  
+*	System.Type on WinRT (Windows 8.1 and Windows Phone 8.1)	
+*	Syste.Uri on Windows Phone 8.x Silverlight
 
-for new API (both Embedded Browsers and Native UI Support) user will need to
-cast object to appropriate type:
+NOTE: if user does need customizations of the NativeUI (Custom Tabs on Android and/or 
+SFSafariViewController) there is extra step needed - cast to appropriate type, so the	
+API can be accessed (more in Details).
 
-*   Android     
-    *   Embedded Browser WebView - cast to `Intent`     
-    *   native UI - cast to CustomTabsIntent.Builder and call Build() to et Intent  
-*   iOS     
-    *   Embedded Browser UIWebView - cast to `UIViewController`     
-    *   native UI - cast to `SFSafariViewController`    
-    
 On Android, user would write the following code to present the UI.
-
-instead of
 
 ```csharp
 StartActivity (auth.GetUI (this));
 ```
 
-use 
+On iOS, one would present UI in following way (with differences fromold API)
 
 ```csharp
-StartActivity ((Intent)auth.GetUI (this));
-```
-
-and for Native UI (Custom Tabs):
-
-```csharp
-StartActivity (((CustomTabsIntent.Builder)auth.GetUI).Build() (this));
-```
-
-On iOS, user would present UI in following way (with differences fromold API)
-
-Instead:
-
-```csharp
-PresentViewController (auth.GetUI (this));
-```
-
-for old API just cast object obtanied by GetUI() to `UIViewController`:
-
-```csharp
-PresentViewController ((UIViewController)auth.GetUI (this));
-```
-
-and for new API cast it to `SFSafariViewController`:
-```csharp
-PresentViewController ((SFSafariViewController)auth.GetUI (), true, null);
+PresentViewController (auth.GetUI ());
 ```
 
 
-## 3. Making requests
+## 3. Using identity - Making requests
 
-Since Facebook is an OAuth2 service, we'll make requests with `OAuth2Request` providing 
-the account we retrieved from the `Completed` event. Assuming we're authenticated, we'll 
-grab the user's info to demonstrate:
+With obtained access_token (identity) user can now access protected ressources.
+
+Since Facebook is an OAuth2 service, user can make requests with `OAuth2Request` providing 
+the account retrieved from the `Completed` event. Assuming user is authenticated, it is possible	 
+to grab the user's info:
 
 ```csharp
-var request = new OAuth2Request 
+OAuth2Request request = new OAuth2Request 
                     (
                         "GET",
                          new Uri ("https://graph.facebook.com/me"), 
                          null, 
                          eventArgs.Account
-                    );
+					);
 request.GetResponseAsync().ContinueWith 
     (
         t => 

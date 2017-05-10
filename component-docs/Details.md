@@ -136,6 +136,17 @@ will return platform specific object to present UI for login.
 This code can be shared for all platforms, so Android and iOS code for
 Embedded Browser and Native UI support 
 
+for new API (both Embedded Browsers and Native UI Support) user will need to
+cast object to appropriate type:
+
+*   Android     
+    *   Embedded Browser WebView - cast to `Intent`     
+    *   native UI - cast to CustomTabsIntent.Builder and call Build() to et Intent  
+*   iOS     
+    *   Embedded Browser UIWebView - cast to `UIViewController`     
+    *   native UI - cast to `SFSafariViewController`    
+
+	
 ```csharp
 System.Object ui_object = auth.GetUI();
 ```
