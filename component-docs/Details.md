@@ -1,25 +1,28 @@
 # Details
 
-Xamarin.Auth helps developers authenticate users via standard authentication 
-mechanisms (e.g. OAuth 1.0 and 2.0), and store user credentials. 
-It's also straightforward  to add support for non-standard authentication 
-schemes. 
+Xamarin.Auth helps developers authenticate users via standard authentication mechanisms 
+(e.g. OAuth 1.0 and 2.0), and store user credentials. It's also straightforward  to add 
+support for non-standard authentication schemes. 
 
 ## Current version and status
 
-*   nuget version 1.4.1.0
-    *   Native UI with checks and Warnings  
-        if http[s] scheme is used
+*   nuget version 1.5.0
+    *   Native UI (CustomTabs on Android and SFSafariViewController on iOS)
+	*	Xamarin.Forms support	
+		*	Xamarin.Android (tested)	
+		*	Xamarin.iOS (tested)
+		*	Windows platforms (tests in progress)	
     *   Xamarin.iOS Embedded Browser WKWebView support as alternative
         WKWebView instead of UIWebView  
 
-[Change Log](./ChangeLog.md)        
+		
+[Change Log](./details/change-log.md)        
       
 Xamarin.Auth has grown into fully fledged cross platform library supporting:
 
 *   Xamarin.Android
 *   Xamarin.iOS (Unified only, Classic Support is removed)
-*   Windows Phone Silverlight 8 and 8.1
+*   Windows Phone Silverlight 8 (8.1 redundant)
 *   Windows Store 8.1 WinRT
 *   Windows Phone 8.1 WinRT
 *   Universal Windows Platform (UWP)
@@ -37,6 +40,9 @@ breaking changes.
 
 ## Support
 
+If there is need for real-time support use Xamarin Chat (community slack team) and go to
+\#xamarin-auth-social channel where halp from experienced users can be obtained.
+
 https://xamarinchat.slack.com/messages/C4TD1NHPT/
     
 
@@ -45,9 +51,10 @@ https://xamarinchat.slack.com/messages/C4TD1NHPT/
 Basic usage steps:
 
 1.  Initialization 
-    1.  create Authenticator object (OAuth1Authenticator or OAuth2Authenticator)        
+	1.	Server side setup
+    2.  create Authenticator object (OAuth1Authenticator or OAuth2Authenticator)        
         using constructor with required parameters
-    2.  setup events (OnCompleted, OnError, OnCanceled, OnBrowsingCompleted)
+    3.  setup events (OnCompleted, OnError, OnCanceled, OnBrowsingCompleted)
 2.  preparing UI        
     1.  authenticator.GetUI()       
     2.  casting to proper object        
@@ -58,9 +65,8 @@ Basic usage steps:
     parsing OAuth data from redirect_url
 5.  Triggering Events based on OAuth data 
 
-Xamarin.Auth with Embedded Browser API did a lot under the hood for users,
-but with the Native UI steps 4. and 5. must be implemented like for 
-App linking (Deep Linking) in:
+Xamarin.Auth with Embedded Browser API did a lot under the hood for users, but with the Native UI 
+steps 4. and 5. must be implemented like for App linking (Deep Linking) in:
 
 1.	Android's Activity with IntentFilter OnCreated.		
 	[TODO add url]		
