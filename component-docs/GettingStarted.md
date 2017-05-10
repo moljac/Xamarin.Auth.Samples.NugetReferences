@@ -10,13 +10,13 @@ OAuth flow (process) is setup in 5 major steps:
     preparing all relevant OAuth Data in Authenticator object
 2.  Creating and optionally customising UI      
 3.  Presenting/Lunching UI and authenticating user	
-	3.1	Detecting/Fetching/Intercepting URL change - redirect url and     
-    3.2	Parsing OAuth data from redirect_url
-	3.3 Triggering Events based on OAuth data 
+	1.	Detecting/Fetching/Intercepting URL change - redirect url and     
+    2.	Parsing OAuth data from redirect_url
+	3.	Triggering Events based on OAuth data 
 4.  Using identity 
-	4.1	Using protected resources (making calls)	
-	4.2	Saving account info
-	4.3 Retrieving account info
+	1.	Using protected resources (making calls)	
+	2.	Saving account info
+	3.	Retrieving account info
   
 Those steps and (substeps) which will be used in detailed documentation 
 [./Details.md](./Details.md).
@@ -30,14 +30,14 @@ especially nomenclature (naming).
 
 In general there are 2 common types of "apps", "projects" or "credentials":
 
-1.  server or Web Application
+1.  Server or Web Application
 
-    Server (Fitbit naming) Web (Google and Facebook terms) application is considered to be 
+    Server (Fitbit naming) or Web (Google and Facebook terms) application is considered to be 
     secure, i.e. client_secret is secure and can be stored and not easily accessed/retrieved 
     by malicious user.
     
     Server/Web app uses http[s] schemes for redirect_url, because it loads real web page 
-     - url-authority can be localhost or real hostname (http://xamarin.com).
+    (url-authority can be localhost or real hostname like http://xamarin.com).
     
     Xamarin.Auth prior to version 1.4.0 used to support only http[s] url-scheme with real   
     url-authority (existing host, no localhost) and arbitrary url-path. 
@@ -77,7 +77,7 @@ With parameters:
     *   authorizeUrl        
     *   redirectUrl     
     
-https://github.com/xamarin/Xamarin.Auth/blob/portable-bait-and-switch/source/Xamarin.Auth.LinkSource/OAuth2Authenticator.cs#L162-L191
+[TODO Link to code]
     
 ### OAuth2 Authorization Code Grant flow 
 
@@ -89,7 +89,7 @@ With parameters:
     *   redirectUrl 
     *   accessTokenUrl
 
-https://github.com/xamarin/Xamarin.Auth/blob/portable-bait-and-switch/source/Xamarin.Auth.LinkSource/OAuth2Authenticator.cs#L240-L277
+[TODO Link to code]
     
     
 More about OAuth can be found here: [./details/oauth.md](./details/oauth.md).
@@ -115,6 +115,7 @@ OAuth2Authenticator auth = new OAuth2Authenticator
     );
 ```
 
+[TODO Link to code]
 
 Facebook uses OAuth 2.0 authentication, so we create an `OAuth2Authenticator`. 
 Authenticators are responsible for managing the user interface and communicating with 
@@ -122,6 +123,7 @@ authentication services.
 
 Authenticators take a variety of parameters; in this case, the application's ID, its 
 authorization scope, and Facebook's various service locations are required.
+
 
 #### 1.2 Setup Authentication Event Handlers
 
@@ -147,6 +149,9 @@ auth.Completed += (sender, eventArgs) =>
 };
 ```
 
+[TODO Link to code]
+
+
 Xamarin.iOS
 
 ```csharp
@@ -166,11 +171,14 @@ auth.Completed += (sender, eventArgs) =>
 };
 ```
 
+[TODO Link to code]
+
 ## 2. Create Login UI and authenticate user
 
-While authenticators manage their own UI, it's up to user to initially present the 
-authenticator's UI on the screen. This lets one control how the authentication UI is 
-displayed–modally, in navigation controllers, in popovers, etc.
+Creating/Launching UI is platform specific and while authenticators manage their own UI, 
+it's up to user to initially present the authenticator's UI on the screen. This lets one 
+control how the authentication UI is displayed - modally, in navigation controllers, in 
+popovers, etc.
 
 Before the UI is presented, user needs to start listening to the `Completed` event which fires 
 when the user successfully authenticates or cancels. One can find out if the authentication 
@@ -184,7 +192,7 @@ All the information gathered from a successful authentication is available in
 Now, the login UI can be obtained using `GetUI()` method and afterwards login screen is 
 ready to be presented.  
 
-The `GetUI()` method returns 
+The `GetUI()` method returns: 
 
 *   `UINavigationController` on iOS, and 
 *   `Intent` on Android.  
@@ -197,19 +205,21 @@ Android:
 global::Android.Content.Intent ui_object = Auth1.GetUI(this);
 ```
 
+[TODO Link to code]
+
 iOS:
 
 ```csharp
 UIKit.UIViewController ui_object = Auth1.GetUI();
 ```
 
+[TODO Link to code]
 
 ### 2.2 Customizing the UI - Native UI [OPTIONAL]
 
 Some users will want to customize appearance of the Native UI (Custom Tabs on Android and/or 
 SFSafariViewController on iOS) there is extra step needed - cast to appropriate type, so the   
 API can be accessed (more in Details).
-
 
 
 ## 3 Present/Launch the Login UI
