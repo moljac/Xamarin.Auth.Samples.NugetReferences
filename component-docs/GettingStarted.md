@@ -20,8 +20,33 @@ Those steps and (substeps) which will be used in detailed documentation
 
 ## 1. Initialization
 
-### Server Side 
+### 1.1 Server Side 
 
+Server side setup of the particular OAuth provider like Google, Facebook or Microsoft Live
+is the source of misunderstandings and errors. This setup differs from provider to provider,
+especially nomenclature (naming).
+
+In general there are 2 common types of "apps", "projects" or "credentials":
+
+1.	Web Application 		
+	Web app is considered to be secure, i.e. client_secret is secure and can be stored and	
+	not easily accessed/retrieved by malicious user.		
+	Web app uses http[s] schemes for redirect_url, because it loads real web page (url-authority
+	can be localhost or real hostname).		
+	Xamarin.Auth prior to version 1.4.0 used to support only http[s] url-scheme with real 	
+	url-authority (existing host, no localhost) and arbitrary url-path. 
+2.	Native or Installed (mobile or desktop) apps		
+	This group is usually divided into Android, iOS, Chrome (javascript) and other (.net) 	
+	subtypes. Each subtype can have different setup. Custom schemes can be predefined (generated)		
+	by provider (Google or Facebook) or defined by user (Fitbit).
+	Xamarin Components Team is working on the doc with minimal info for common used providers and		
+	how to setup server side.		
+	Xamarin.Auth implements requirements for native/installed apps since nuget version 1.4.0, but	
+	the API was broken (`GetUI()` returned `System.Object`, so cast was necessary)
+
+Server side setup details will be explained in separate document.
+
+	
 ### Client (mobile) application initialization
 
 Initialization is based on Oauth Grant (flow) in use which is determined by OAuth 
