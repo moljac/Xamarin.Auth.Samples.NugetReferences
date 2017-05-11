@@ -17,7 +17,22 @@ support for non-standard authentication schemes.
 
 		
 [Change Log](./details/change-log.md)        
-      
+
+### Status
+
+CI servers:
+
+*	MacOSX builds
+
+	https://jenkins.mono-project.com/view/Components/job/Components-XamarinAuth/
+	
+
+*	Windows builds		
+
+	https://jenkins.mono-project.com/view/Components/job/Components-XamarinAuth-Windows/
+    
+	
+	
 Xamarin.Auth has grown into fully fledged cross platform library supporting:
 
 *   Xamarin.Android
@@ -75,7 +90,7 @@ https://xamarinchat.herokuapp.com/
 
 OAuth flow (process) is setup in 4 major steps:
 
-0.  *Server side setup for OAuth service provider* 
+0.  **Server side setup for OAuth service provider** 
 
 	To name some:
 	
@@ -104,14 +119,14 @@ OAuth flow (process) is setup in 4 major steps:
 		
 		[Fitbit](./details/setup-server-side-oauth-providers/fitbit.md)
 
-1.  *Client side initialization of Authenticator object*
+1.  **Client side initialization of Authenticator object**
       
     This step prepares all relevant OAuth Data in Authenticator object (client_id,
 	redirect_url, client_secret, OAuth provider's endpoints etc)
 
-2.  *Creating and optionally customising UI*      
+2.  **Creating and optionally customising UI**      
 
-3.  *Presenting/Lunching UI and authenticating user*	
+3.  **Presenting/Lunching UI and authenticating user**	
 
 	1.	Detecting/Fetching/Intercepting URL change - redirect_url and  
 
@@ -129,7 +144,7 @@ OAuth flow (process) is setup in 4 major steps:
 		Parsing subsytem of the Authenticator will parse OAuth data and raise	
 		appropriate events based on returned data
 
-4.  *Using identity* 
+4.  **Using identity** 
 
 	1.	Using protected resources (making calls)	
 	

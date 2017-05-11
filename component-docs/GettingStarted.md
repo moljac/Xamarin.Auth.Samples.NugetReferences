@@ -384,3 +384,15 @@ If user wants to authenticate against an ostensibly unsupported service, fear no
 is extensible! It's very easy to create own custom authenticators – just derive from any of the 
 existing authenticators and start overriding methods.
 
+## Installation
+
+Xamarin.Auth can be installed in binary form (compiled and packaged)
+or compiled from source.
+ 
+Binary form is deployable as nuget from nuget.org or Xamarin Component 
+from component store:
+
+*	nuget 
+*	Component [UPDATE INPROGRESS]
+
+Details: [./details/installation-and-compilation.md](./details/installation-and-compilation.md)
