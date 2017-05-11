@@ -82,11 +82,11 @@
       <HintPath>..\packages\Validation.2.4.15\lib\netstandard1.3\Validation.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Auth, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Xamarin.Auth.1.5.0-alpha-13\lib\Xamarin.iOS10\Xamarin.Auth.dll</HintPath>
+      <HintPath>..\packages\Xamarin.Auth.1.5.0-alpha-14\lib\Xamarin.iOS10\Xamarin.Auth.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Xamarin.Auth.XamarinForms, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Xamarin.Auth.XamarinForms.1.5.0-alpha-13\lib\Xamarin.iOS10\Xamarin.Auth.XamarinForms.dll</HintPath>
+      <HintPath>..\packages\Xamarin.Auth.XamarinForms.1.5.0-alpha-14\lib\Xamarin.iOS10\Xamarin.Auth.XamarinForms.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">

@@ -11,6 +11,11 @@ support for non-standard authentication schemes.
 
 ## Current version and status
 
+[![Components-XamarinAuth][7]][8]
+
+[7]: https://jenkins.mono-project.com/view/Components/job/Components-XamarinAuth/badge/icon
+[8]: https://jenkins.mono-project.com/view/Components/job/Components-XamarinAuth
+
 *   nuget version 1.5.0
     *   Native UI (CustomTabs on Android and SFSafariViewController on iOS)
 	*	Xamarin.Forms support	
