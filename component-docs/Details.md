@@ -1,5 +1,10 @@
 # Details
 
+[![Components-Mono.Posix][7]][8]
+
+[7]: https://jenkins.mono-project.com/view/Components/job/Components-Mono.Posix/badge/icon
+[8]: https://jenkins.mono-project.com/view/Components/job/Components-Mono.Posix
+
 Xamarin.Auth helps developers authenticate users via standard authentication mechanisms 
 (e.g. OAuth 1.0 and 2.0), and store user credentials. It's also straightforward  to add 
 support for non-standard authentication schemes. 
