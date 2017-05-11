@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="ComicBook.MainPage">
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="ComicBook.MainPage"
+    >
     <ContentPage.Padding>
             <OnPlatform 
                 x:TypeArguments="Thickness" 
@@ -35,18 +39,23 @@
                         ItemsSource="{Binding FormsImplementations}" 
                         SelectedIndex="{Binding pickerFormsImplementations_SelectedIndex}"
                         />
+
                     <OnPlatform x:TypeArguments="View">
                         <OnPlatform.iOS>
-                            <Picker 
-                                x:Name="pickerViews" 
-                                ItemsSource="{Binding Views}" 
-                                SelectedIndex="{Binding pickerViews_SelectedIndex}"
-                                />
+                            <Picker
+                               x:Name="pickerViews"
+                               ItemsSource="{Binding Views}"
+                               SelectedIndex="{Binding pickerViews_SelectedIndex}"
+                               />
                         </OnPlatform.iOS>
                         <OnPlatform.Android>
                             <Label Text="Android" />
                         </OnPlatform.Android>
+                        <OnPlatform.WinPhone>
+                            <Label Text="Windows" />
+                        </OnPlatform.WinPhone>
                     </OnPlatform>
+                    
                     <Button 
                         x:Name="buttonGoogle" 
                         Text="Google OAuth" 
