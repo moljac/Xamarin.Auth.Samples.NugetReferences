@@ -35,13 +35,29 @@ breaking changes.
 
 ## Work in progress and plans
 
-*   [Custom] UserAgent API [NOT RECOMMENDED]    
-    workaround for attempts to fool google and use Embedded Browsers
+*   Xamarin.Forms Windows support	     
+*   UserAgent API     
+	[DEPRECATED] [NOT RECOMMENDED] ToS violations
+    workaround for attempts to fake UserAgent for Embedded Browsers to fool	
+	Google
 
 ## Support
 
 If there is need for real-time support use Xamarin Chat (community slack team) and go to
 \#xamarin-auth-social channel where halp from experienced users can be obtained.
+
+### Github
+
+### Xamarin Forums
+
+### Stackoverflow
+
+
+### Xamarin Chat - Community Slack Team (xamarin-auth-social room)
+
+For those that need real-time help (hand-in-hand leading thorugh implementation) the 
+best option is to use community slack channel. There are numerous people that have
+implemented Xamarin.Auth with Native UI and maintainers/developers of the library.
 
 https://xamarinchat.slack.com/messages/C4TD1NHPT/
     
@@ -50,27 +66,72 @@ For those without Xamarin Chat account please visit this page and generate selfi
 https://xamarinchat.herokuapp.com/
 
 
-## Usage
+## OAuth 
 
-Basic usage steps:
+OAuth flow (process) is setup in 4 major steps:
 
-1.  Initialization 
-	1.	Server side setup
-    2.  create Authenticator object (OAuth1Authenticator or OAuth2Authenticator)        
-        using constructor with required parameters
-    3.  setup events (OnCompleted, OnError, OnCanceled, OnBrowsingCompleted)
-2.  preparing UI        
-    1.  authenticator.GetUI()       
-    2.  casting to proper object        
-    3.  decorating UI       
-3.  presenting/launching UI 
-4.  Detecting/Fetching/Intercepting URL change - redirect url   
-    and     
-    parsing OAuth data from redirect_url
-5.  Triggering Events based on OAuth data 
+0.  *Server side setup for OAuth service provider* 
 
-Xamarin.Auth with Embedded Browser API did a lot under the hood for users, but with the Native UI 
-steps 4. and 5. must be implemented like for App linking (Deep Linking) in:
+	To name some:
+	
+	1.	Google
+	
+		Google introduced mandatory use of Native UI for security reasons because	
+		Android CustomTabs and iOS SFSafariViewController are based on Chrome and	
+		Safari code-bases thus thoroughly tested and regulary updated. Moreover 	
+		Native UI (System Browsers) have reduced API, so malicious users have less	
+		possibilities to retrieve and use sensitive data.
+		
+		[Google](./details/setup-server-side-oauth-providers/google.md)
+	
+	2.	Facebook
+	
+		[Facebook](./details/setup-server-side-oauth-providers/google.md)
+
+	3.	Fitbit	
+		
+		Fitbit is good for testing, because it allows arbitrary values for		
+		redirect_url.
+		[Fitbit](./details/setup-server-side-oauth-providers/fitbit.md)
+
+1.  *Client side initialization of Authenticator object*
+      
+    This step prepares all relevant OAuth Data in Authenticator object (client_id,
+	redirect_url, client_secret, OAuth provider's endpoints etc)
+
+2.  *Creating and optionally customising UI*      
+
+3.  *Presenting/Lunching UI and authenticating user*	
+
+	1.	Detecting/Fetching/Intercepting URL change - redirect_url and  
+
+		This substep is step needed for NativeUI and requires that custom scheme
+		registration together for redirect_url intercepting mechanism. This step	
+		is actually App Linking (Deep Linking) concept in mobile applications.
+
+    2.	Parsing OAuth data from redirect_url
+
+		In order to obtain OAuth data returned redirect_url must be parsed and the	
+		best way is to let Xamarin.Auth do it automatically by parsing redirect_url 
+		
+	3.	Triggering Events based on OAuth data 
+	
+		Parsing subsytem of the Authenticator will parse OAuth data and raise	
+		appropriate events based on returned data
+
+4.  *Using identity* 
+
+	1.	Using protected resources (making calls)	
+	
+	2.	Saving account info
+	
+	3.	Retrieving account info
+	
+	
+Xamarin.Auth with Embedded Browser API does a lot under the hood for users, but with the 
+Native UI step 3.1 must be manually implemented by user and this is nothing else but
+App linking (Deep Linking) concept. 
+
 
 1.	Android's Activity with IntentFilter OnCreated.		
 	[TODO add url]		
@@ -81,9 +142,6 @@ User will need to expose Authenticator object via public field or property.
 
 ### 1. Initialization
 
-#### 1.1 Server side setup
-
-
 #### 1.2 
 
 In the initialization step Authenticator object will be created according
@@ -92,7 +150,7 @@ to OAuth flow used and user application OAuth server setup.
 This code is shared accross all platforms:
 
 ```csharp
-var auth = new OAuth2Authenticator
+OAuth2Authenticator auth = new OAuth2Authenticator
                 (
                     clientId: "",
                     scope: oauth2.OAuth2_Scope,
@@ -108,6 +166,9 @@ var auth = new OAuth2Authenticator
                 AllowCancel = oauth1.AllowCancel,
             };                        
 ```
+
+[TODO Link to code]
+
 
 #### 1.1 Subscribing to Authenticator events
 
@@ -142,6 +203,9 @@ else
 }
 //-------------------------------------------------------------
 ```
+
+[TODO Link to code]
+
 
 ### 2. Creating/Preparing UI
 
@@ -181,6 +245,9 @@ Type page_type = auth.GetUI();
 this.Frame.Navigate(page_type, auth);
 ```
 
+[TODO Link to code]
+
+
 ##### Windows Store 8.1 WinRT and Windows Phone 8.1 WinRT
 
 ```csharp
@@ -189,12 +256,18 @@ Type page_type = auth.GetUI();
 this.Frame.Navigate(page_type, auth);
 ```
 
+[TODO Link to code]
+
+
 ##### Windows Phone Silverlight 8.x 
 
 ```csharp
 Uri uri = auth.GetUI ();
 this.NavigationService.Navigate(uri);
 ```
+
+[TODO Link to code]
+
 
 #### 2.1 UI Customisations
 
@@ -254,17 +327,24 @@ this might be subject to change.
 this.Frame.Navigate(page_type, auth);
 ```
 
+[TODO Link to code]
+
+
 ##### Windows Store 8.1 WinRT and Windows Phone 8.1 WinRT
 
 ```csharp
 this.Frame.Navigate(page_type, auth);
 ```
 
+[TODO Link to code]
+
 ##### Windows Phone Silverlight 8.x 
 
 ```csharp
 this.NavigationService.Navigate(uri);
 ```
+
+[TODO Link to code]
 
 ### 4. 
 
@@ -389,6 +469,9 @@ public class ActivityCustomUrlSchemeInterceptor : Activity
 }
 ```
 
+[TODO Link to code]
+
+
 IntentFilter attribute will modify AndroidManifest.xml adding following node (user
 could have added this node manually to application node):
 
@@ -405,6 +488,8 @@ could have added this node manually to application node):
       </intent-filter>
     </activity>
 ```
+
+[TODO Link to code]
 
 Xamarin.iOS
 
@@ -434,6 +519,17 @@ manually):
            </dict>
        </array>
 ```
+
+[TODO Link to code]
+
+
+NOTE:
+When editing Info.plist take care if it is auto-opened in the generic plist editor.
+Generic plist editor shows "CFBundleURLSchemes" as simple "URL Schemes"
+If user is using the plist editor to create the values and type in URL Schemes, 
+it won't convert that to CFBundleURLSchemes.
+Switching to the xml editor and user will be able to see the difference.
+
 
 Add code to intercept opening URL with registered custom scheme by implementing
 OpenUrl method override in AppDelegate:
@@ -475,6 +571,10 @@ public override bool OpenUrl
     return true;
 }
 ```
+
+[TODO Link to code]
+
+
 #### More Information
     
 https://developer.chrome.com/multidevice/android/customtabs

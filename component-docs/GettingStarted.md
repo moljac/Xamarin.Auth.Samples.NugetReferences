@@ -93,6 +93,7 @@ Initialization is performed thorugh `Authenticator` constructors for:
 ### OAuth2 Implicit Grant flow 
 
 With parameters:    
+
     *   clientId        
     *   scope       
     *   authorizeUrl        
@@ -103,12 +104,13 @@ With parameters:
 ### OAuth2 Authorization Code Grant flow 
 
 With parameters:       
-    *   clientId   
-    *   clientSecret
-    *   scope       
-    *   authorizeUrl        
-    *   redirectUrl 
-    *   accessTokenUrl
+
+    *   clientId   	
+    *   clientSecret	
+	*	scope       
+    *   authorizeUrl  	      
+    *   redirectUrl 	
+    *   accessTokenUrl	
 
 [TODO Link to code]
     
@@ -146,7 +148,7 @@ Authenticators take a variety of parameters; in this case, the application's ID,
 authorization scope, and Facebook's various service locations are required.
 
 
-#### 1.2 Setup Authentication Event Handlers
+### 1.2 Setup Authentication Event Handlers
 
 To capture events and information in the OAuth flow simply subscribe to Authenticator
 events (add event handlers):
@@ -255,6 +257,8 @@ StartActivity (ui_object);  // ui_object is Android.Content.Intent
 StartActivity (auth.GetUI (this));
 ```
 
+[TODO Link to code]
+
 On iOS, one would present UI in following way (with differences fromold API)
 
 ```csharp
@@ -262,6 +266,8 @@ PresentViewController(ui_object, true, null);
 //or
 PresentViewController (auth.GetUI ());
 ```
+
+[TODO Link to code]
 
 On Windows [TODO] 
 
@@ -299,6 +305,8 @@ request.GetResponseAsync().ContinueWith
     );
 ```
 
+[TODO Link to code]
+
 
 ### 4.2 Store the account
 
@@ -316,12 +324,18 @@ Creating `AccountStore` on Android:
 AccountStore.Create (this).Save (eventArgs.Account, "Facebook");
 ```
 
+[TODO Link to code]
+
+
 Creating `AccountStore` on iOS:
 
 ```csharp
 // On iOS:
 AccountStore.Create ().Save (eventArgs.Account, "Facebook");
 ```
+
+[TODO Link to code]
+
 
 Saved Accounts are uniquely identified using a key composed of the account's 
 `Username` property and a "Service ID". The "Service ID" is any string that is 
@@ -343,6 +357,9 @@ Retrieving accounts on Android:
 IEnumerable<Account> accounts = AccountStore.Create (this).FindAccountsForService ("Facebook");
 ```
 
+[TODO Link to code]
+
+
 Retrieving accounts on iOS:
 
 ```csharp
@@ -350,11 +367,14 @@ Retrieving accounts on iOS:
 IEnumerable<Account> accounts = AccountStore.Create ().FindAccountsForService ("Facebook");
 ```
 
+[TODO Link to code]
+
+
 It's that easy.
 
 Windows [TODO]
 
-## Extending Xamarin.Auth - Make your own authenticator
+## Extending Xamarin.Auth - Make customized Authenticator
 
 Xamarin.Auth includes OAuth 1.0 and OAuth 2.0 authenticators, providing support for thousands 
 of popular services. For services that use traditional username/password authentication, one 
