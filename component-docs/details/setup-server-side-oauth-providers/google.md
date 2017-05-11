@@ -1,4 +1,6 @@
-# Server Setup OAuth Provider Google 
+# Google Setup
+
+WORK IN PROGRESS - CONSTRUCTION_SITE/BAUSTELLE
 
 https://developers.google.com/identity/protocols/OAuth2InstalledApp#choosingredirecturi
 https://developers.google.com/identity/protocols/OAuth2InstalledApp#request-parameter-redirect_uri

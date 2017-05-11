@@ -50,8 +50,13 @@ If there is need for real-time support use Xamarin Chat (community slack team) a
 
 ### Xamarin Forums
 
+https://forums.xamarin.com/search?search=auth
+
+https://forums.xamarin.com/search?search=xamarin.auth
+
 ### Stackoverflow
 
+http://stackoverflow.com/search?q=xamarin.auth
 
 ### Xamarin Chat - Community Slack Team (xamarin-auth-social room)
 
@@ -86,12 +91,17 @@ OAuth flow (process) is setup in 4 major steps:
 	
 	2.	Facebook
 	
-		[Facebook](./details/setup-server-side-oauth-providers/google.md)
+		[Facebook](./details/setup-server-side-oauth-providers/facebook.md)
 
-	3.	Fitbit	
+	3.	Microsoft
+	
+		[Microsoft](./details/setup-server-side-oauth-providers/microsoft.md)
+	
+	4.	Fitbit	
 		
 		Fitbit is good for testing, because it allows arbitrary values for		
 		redirect_url.
+		
 		[Fitbit](./details/setup-server-side-oauth-providers/fitbit.md)
 
 1.  *Client side initialization of Authenticator object*
@@ -134,8 +144,11 @@ App linking (Deep Linking) concept.
 
 
 1.	Android's Activity with IntentFilter OnCreated.		
+
 	[TODO add url]		
+
 2.	iOS' AppDelegate.OpenUrl method
+
 	[TODO add url]		
 
 User will need to expose Authenticator object via public field or property.
