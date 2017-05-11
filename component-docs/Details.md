@@ -1,9 +1,9 @@
 # Details
 
-[![Components-Xamarin.Auth][7]][8]
+[![Components-XamarinAuth][7]][8]
 
-[7]: https://jenkins.mono-project.com/view/Components/job/Components-Xamarin.Auth/badge/icon
-[8]: https://jenkins.mono-project.com/view/Components/job/Components-Xamarin.Auth
+[7]: https://jenkins.mono-project.com/view/Components/job/Components-XamarinAuth/badge/icon
+[8]: https://jenkins.mono-project.com/view/Components/job/Components-XamarinAuth
 
 Xamarin.Auth helps developers authenticate users via standard authentication mechanisms 
 (e.g. OAuth 1.0 and 2.0), and store user credentials. It's also straightforward  to add 
