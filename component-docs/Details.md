@@ -1,5 +1,10 @@
 # Details
 
+[![Components-Mono.Posix][7]][8]
+
+[7]: https://jenkins.mono-project.com/view/Components/job/Components-Mono.Posix/badge/icon
+[8]: https://jenkins.mono-project.com/view/Components/job/Components-Mono.Posix
+
 Xamarin.Auth helps developers authenticate users via standard authentication mechanisms 
 (e.g. OAuth 1.0 and 2.0), and store user credentials. It's also straightforward  to add 
 support for non-standard authentication schemes. 
@@ -56,12 +61,18 @@ breaking changes.
     workaround for attempts to fake UserAgent for Embedded Browsers to fool	
 	Google
 
-## Support
+## Support 
 
 If there is need for real-time support use Xamarin Chat (community slack team) and go to
 \#xamarin-auth-social channel where halp from experienced users can be obtained.
 
 ### Github
+
+Issues
+Samples (with nuget references) from the repo separated for faster development:
+
+https://github.com/moljac/Xamarin.Auth.Samples.NugetReferences/
+
 
 ### Xamarin Forums
 
