@@ -87,14 +87,13 @@ So, in version 1.5.0 `GetUI()` returns
 
 ## Support 
 
-### Documentation - Github Wiki pages
-
-
-
 If there is need for real-time support use Xamarin Chat (community slack team) and go to
 \#xamarin-auth-social channel where help from experienced users can be obtained.
 For all users without account for community slack team, please, go to self-invite link
 first.
+
+### Documentation - Github Wiki pages
+
 
 ### Github
 
@@ -426,9 +425,7 @@ this.NavigationService.Navigate(uri);
 
 [TODO Link to code]
 
-### 4. 
-
-### Native UI support - Parsing URL fragment data
+### 3.2 Native UI support - Parsing URL fragment data
 
 The main reason for introducing Native UI support for Installed Apps (mobile apps)
 is security. Both Android's [Chrome] Custom Tabs and iOS SFSafariViewController
@@ -654,7 +651,25 @@ public override bool OpenUrl
 
 [TODO Link to code]
 
+### 4 Using identity
 
+## Xamarin.Forms support
+
+Since version 1.5.0 Xamarin.Auth has built in support for Xamarin.Forms with 2 
+different implementations:
+
+*	with platform specific Presenters (Dependency Service, Dependency Injection)	
+
+	This implementation has no dependencies on Xamarin.Forms, so it is in Xamarn.Auth	
+	nuget package.
+	
+*	with Custom Renderers 
+
+	This implementation dependens on Xamarin.Forms, so it is in separate nuget 
+	package - Xamarn.Auth.XamarinForms	
+	
+
+	
 #### More Information
     
 https://developer.chrome.com/multidevice/android/customtabs
