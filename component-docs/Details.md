@@ -474,6 +474,16 @@ To enable Native UI support 3 steps are neccessary:
 	url scheme. This concept is called App or Deep Linking. On Android this 
 	registration is done via url handling Activity's IntentFilter and on iOS via
 	
+3.	implement platform specific code that intercepts redirect_url with custom scheme
+
+	On Android Activity handles opening Url with custom scheme and this Activity
+	was registered at OS level thorugh IntentFilter in step 2. On iOS user is 
+	supposed to implement `OpenUrl` in the `AppDelegate` class.
+	When browser tries to open Url with custom scheme and the browser itself is not
+	registered to open that scheme it will raise event on OS level and OS will check
+	application registrations for that specific scheme. If the application is found
+	url will be passed to `Activity`'s `OnCreate()` and/or `AppDelegate`'s `OpenUrl()`.
+	
 
 ##### Preparing app for the Native UI support
     
@@ -501,66 +511,54 @@ Add Activity with IntentFilter to catch/intercept URLs
 with user's custom schema:
 
 ```csharp
-[Activity(Label = "ActivityCustomUrlSchemeInterceptor")]
-[
-    // App Linking - custom url schemes
-    IntentFilter
-    (
-        actions: new[] { Intent.ActionView },
-        Categories = new[] 
-                { 
-                    Intent.CategoryDefault, 
-                    Intent.CategoryBrowsable 
-                },
-        DataSchemes = new[]
-                {
-                    "xamarinauth",
-                    "xamarin-auth",
-                    "xamarin.auth",
-                },
-        DataHost = "localhost"
-    )
-]
-public class ActivityCustomUrlSchemeInterceptor : Activity
-{
-    string message;
-
-    protected override void OnCreate(Bundle savedInstanceState)
+    [Activity(Label = "ActivityCustomUrlSchemeInterceptor", NoHistory = true, LaunchMode = LaunchMode.SingleTop)]
+    [
+        IntentFilter
+        (
+            actions: new[] { Intent.ActionView },
+            Categories = new[]
+                    {
+                        Intent.CategoryDefault,
+                        Intent.CategoryBrowsable
+                    },
+            DataSchemes = new[]
+                    {
+                        "com.xamarin.traditional.standard.samples.oauth.providers.android",
+                        /*
+                        "com.googleusercontent.apps.1093596514437-d3rpjj7clslhdg3uv365qpodsl5tq4fn",
+                        "urn:ietf:wg:oauth:2.0:oob",
+                        "urn:ietf:wg:oauth:2.0:oob.auto",
+                        "http://localhost:PORT",
+                        "https://localhost:PORT",
+                        "http://127.0.0.1:PORT",
+                        "https://127.0.0.1:PORT",              
+                        "http://[::1]:PORT", 
+                        "https://[::1]:PORT", 
+                        */
+                    },
+            //DataHost = "localhost",
+            DataPath = "/oauth2redirect"
+        )
+    ]
+    public class ActivityCustomUrlSchemeInterceptor : Activity
     {
-        base.OnCreate(savedInstanceState);
+        string message;
 
-        // Create your application here
-        global::Android.Net.Uri uri_android = Intent.Data;
-
-
-        System.Uri uri = new Uri(uri_android.ToString());
-        IDictionary<string, string> fragment = Utilities.WebEx.FormDecode(uri.Fragment);
-
-        Account account = new Account
-                                (
-                                    "username",
-                                    new Dictionary<string, string>(fragment)
-                                );
-
-        AuthenticatorCompletedEventArgs args_completed = new AuthenticatorCompletedEventArgs(account);
-
-        if (MainActivity.Auth2 != null)
+        protected override void OnCreate(Bundle savedInstanceState)
         {
-            // call OnSucceeded to trigger OnCompleted event
-            MainActivity.Auth2.OnSucceeded(account);
-        }
-        else if (MainActivity.Auth1 != null)
-        {
-            // call OnSucceeded to trigger OnCompleted event
-            MainActivity.Auth1.OnSucceeded(account);
-        }
-        else
-        {
-        }
+            base.OnCreate(savedInstanceState);
 
-        this.Finish();
+            // Convert iOS NSUrl to C#/netxf/BCL System.Uri - common API
+            Uri uri_netfx = new Uri(uri_android.ToString());
 
-        return;
+			// load redirect_url Page (send it back to Xamarin.Auth)
+			//	for Url parsing and raising Complete or Error events
+            AuthenticationState.Authenticator.OnPageLoading(uri_netfx);
+
+            this.Finish();
+
+            return;
+        }
     }
 }
 ```
@@ -630,39 +628,21 @@ OpenUrl method override in AppDelegate:
 
 ```csharp
 public override bool OpenUrl
-                        (
-                            UIApplication application,
-                            NSUrl url,
-                            string sourceApplication,
-                            NSObject annotation
-                        )
+		(
+			UIApplication application,
+			NSUrl url,
+			string sourceApplication,
+			NSObject annotation
+		)
 {
-    System.Uri uri = new Uri(url.AbsoluteString);
-    IDictionary<string, string> fragment = Utilities.WebEx.FormDecode(uri.Fragment);
+	// Convert iOS NSUrl to C#/netxf/BCL System.Uri - common API
+	Uri uri_netfx = new Uri(url.AbsoluteString);
 
-    Account account = new Account
-                            (
-                                "username",
-                                new Dictionary<string, string>(fragment)
-                            );
+	// load redirect_url Page (send it back to Xamarin.Auth)
+	//	for Url parsing and raising Complete or Error events
+	AuthenticationState.Authenticator.OnPageLoading(uri_netfx);
 
-    AuthenticatorCompletedEventArgs args_completed = new AuthenticatorCompletedEventArgs(account);
-
-    if (TestProvidersController.Auth2 != null)
-    {
-        // call OnSucceeded to trigger OnCompleted event
-        TestProvidersController.Auth2.OnSucceeded(account);
-    }
-    else if (TestProvidersController.Auth1 != null)
-    {
-        // call OnSucceeded to trigger OnCompleted event
-        TestProvidersController.Auth1.OnSucceeded(account);
-    }
-    else
-    {
-    }
-
-    return true;
+	return true;
 }
 ```
 
