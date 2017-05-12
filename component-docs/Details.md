@@ -196,24 +196,27 @@ OAuth flow (process) is setup in 4 major steps:
 	
 	3.	Retrieving account info
 	
-	
+
 Xamarin.Auth with Embedded Browser API does a lot under the hood for users, but with 
-the Native UI step 3.1 Deep Linking must be manually implemented by the user.
+the Native UI step 3.1 Deep Linking (App linking) must be manually implemented by the 
+user.
 
 
-1.	Android's Activity with IntentFilter OnCreated.		
+## Xamarin.Auth usage 
 
-	[TODO add url]		
+Xamarin.Auth covers 2 Xamarin technologies - traditional/standard (Xamarin.Android, 
+Xamarin.iOS) and Xamarin.Forms. The library implements nuget "bait and switch" 
+technology.	
 
-2.	iOS' AppDelegate.OpenUrl method
+### Usage Xamarin Traditional (Standard)
 
-	[TODO add url]		
+Design of the library is aimed to reduce platform differences, but this is not possible
+in all cases (most methods in Android API need Context as a parameter), so user must
+be familiar with platform concepts and details. 
 
-User will need to expose Authenticator object via public field or property.
+#### 1. Initialization
 
-### 1. Initialization
-
-#### 1.1 Creating and configuring an Authenticator
+##### 1.1 Creating and configuring an Authenticator
 
 The server side setup of the OAuth provider defines OAuth flow used which again
 defines which Authenticator constructor will be used.
@@ -241,7 +244,7 @@ OAuth2Authenticator auth = new OAuth2Authenticator
 [TODO Link to code]
 
 
-#### 1.1 Subscribing to Authenticator events
+##### 1.1 Subscribing to Authenticator events
 
 In order to receive OAuth events Authenticator object must subscribe to the 
 events.
@@ -268,9 +271,9 @@ User will need to subscribe to these event in order to work with the data receiv
 from the authentication response.
 
 
-### 2. Creating/Preparing UI
+#### 2. Creating/Preparing UI
 
-#### 2.1 Creating Login UI
+##### 2.1 Creating Login UI
 
 Creating UI step will call `GetUI()` method on Authenticator object which
 will return platform specific object to present UI for login.
@@ -338,17 +341,17 @@ System.Uri uri = auth.GetUI ();
 [TODO Link to code]
 
 
-#### 2.2 Customizing the UI - Native UI [OPTIONAL]
+##### 2.2 Customizing the UI - Native UI [OPTIONAL]
 
 Embedded Browser API has limited API for UI customizations, while
 Native UI API is essentially more complex especially on Android.
 
-##### Xamarin.Android 
+**Xamarin.Android**
 
-Native UI on Android exposes several objects to the end user which 
-enable UI customisations like adding menus, toolbars and performance 
-optimisations like WarmUp (preloading of the browser in the memory) 
-and prefetching (preloading of the web site before rendering).
+Native UI on Android exposes several objects to the end user which enable UI 
+customisations like adding menus, toolbars and performance optimisations like 
+WarmUp (preloading of the browser in the memory) and prefetching (preloading 
+of the web site before rendering).
 
 Those exposed objects from simpler to more complex:
 
@@ -365,11 +368,10 @@ Those exposed objects from simpler to more complex:
 
 [TODO finish API and more info]
 
-##### Xamarin.iOS 
+**Xamarin.iOS**
 
-Native UI on iOS exposes SFSafariViewController and customizations
-are performed on that object.
-
+Native UI on iOS exposes SFSafariViewController and customizations are performed 
+through the API of that object.
 
 ```csharp
 ```
@@ -377,7 +379,7 @@ are performed on that object.
 [TODO Link to code]
 
 
-### 3 Present/Launch the Login UI
+#### 3 Present/Launch the Login UI
 
 This step will open a page of OAuth provider enabling user to enter the
 credentials and authenticate.
@@ -386,21 +388,21 @@ credentials and authenticate.
 NOTE: there is still discussion about API and returning object, so
 this might be subject to change.
 
-##### Xamarin.Android 
+**Xamarin.Android**
 
 ```csharp
 // Step 3 Present/Launch the Login UI
 StartActivity(ui_object);
 ```
 
-##### Xamarin.iOS 
+**Xamarin.iOS**
 
 ```csharp
 // Step 3 Present/Launch the Login UI
 PresentViewController(ui_object, true, null);
 ```
 
-##### Universal Windows Platform
+**Windows - Universal Windows Platform**
 
 ```csharp
 this.Frame.Navigate(page_type, auth);
@@ -409,7 +411,7 @@ this.Frame.Navigate(page_type, auth);
 [TODO Link to code]
 
 
-##### Windows Store 8.1 WinRT and Windows Phone 8.1 WinRT
+**Windows - WinRT - Windows Store 8.1 Windows Phone 8.1**
 
 ```csharp
 this.Frame.Navigate(page_type, auth);
@@ -417,7 +419,7 @@ this.Frame.Navigate(page_type, auth);
 
 [TODO Link to code]
 
-##### Windows Phone Silverlight 8.x 
+**Windows Phone Silverlight 8.x**
 
 ```csharp
 this.NavigationService.Navigate(uri);
@@ -425,7 +427,7 @@ this.NavigationService.Navigate(uri);
 
 [TODO Link to code]
 
-### 3.2 Native UI support - Parsing URL fragment data
+#### 3.2 Native UI support - Parsing URL fragment data
 
 The main reason for introducing Native UI support for Installed Apps (mobile apps)
 is security. Both Android's [Chrome] Custom Tabs and iOS SFSafariViewController
@@ -456,14 +458,31 @@ browsers (Android Browser and Safari).
         scheme
         iOS 
 
-#### Preparing app for the Native UI support
+		
+To enable Native UI support 3 steps are neccessary:
+
+1.	add references to external utilities that implement NativeUI usually 	
+	nuget packages.
+	
+	This step is neccessary for Android only, because CustomTabs implementation
+	is in `Xamarin.Android.Support.CustomTabs` nuget. `SafariServices` are part
+	of newer iOS operating systems.
+	
+2.	register custom scheme at OS level
+
+	Operating system needs to know which application will open particular custom	
+	url scheme. This concept is called App or Deep Linking. On Android this 
+	registration is done via url handling Activity's IntentFilter and on iOS via
+	
+
+##### Preparing app for the Native UI support
     
 For Android app add Xamarin.Android.Support.CustomTabs package through nuget
 package manager.
 
 For iOS apps - NOOP - nothing needs to be done.
 
-#### Adding URL custom schema intercepting utility for parsing
+Adding URL custom schema intercepting utility for parsing
 
 Next step is to define custome scheme[s] the app can handle.
 
@@ -573,28 +592,26 @@ Xamarin.iOS
 Register custom schemes to Info.plist by opening editor in Advanced tab
 and add schemes in URL types with Role Viewer.
 
-This will result in following XML snippet in Info.plist (again user can add it 
-manually):
+This will result in following Info.plist snippet:
 
-```
-    <!--
-        Info.plist
-    -->
-        <key>CFBundleURLTypes</key>
-       <array>
-           <dict>
-               <key>CFBundleURLName</key>
-               <string>com.example.store</string>
-               <key>CFBundleURLTypes</key>
-               <string>Viewer</string>
-               <key>CFBundleURLSchemes</key>
-               <array>
-                   <string>xamarinauth</string>
-                   <string>xamarin-auth</string>
-                   <string>xamarin.auth</string>
-                </array>
-           </dict>
-       </array>
+```xml
+<!--
+	Info.plist
+-->
+<key>CFBundleURLTypes</key>
+<array>
+	<dict>
+		<key>CFBundleURLName</key>
+		<string>Xamarin.Auth Google OAuth</string>
+		<key>CFBundleURLSchemes</key>
+		<array>
+			<string>com.xamarin.traditional.standard.samples.oauth.providers.ios</string>
+			<string>com.googleusercontent.apps.1093596514437-cajdhnien8cpenof8rrdlphdrboo56jh</string>
+		</array>
+		<key>CFBundleURLTypes</key>
+		<string>Viewer</string>
+	</dict>
+</array>
 ```
 
 [TODO Link to code]
@@ -602,7 +619,7 @@ manually):
 
 NOTE:
 When editing Info.plist take care if it is auto-opened in the generic plist editor.
-Generic plist editor shows "CFBundleURLSchemes" as simple "URL Schemes"
+Generic plist editor shows "CFBundleURLSchemes" as simple "URL Schemes".
 If user is using the plist editor to create the values and type in URL Schemes, 
 it won't convert that to CFBundleURLSchemes.
 Switching to the xml editor and user will be able to see the difference.
