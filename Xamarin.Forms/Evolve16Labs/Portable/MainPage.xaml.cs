@@ -381,7 +381,7 @@ namespace ComicBook
                                              retval_client_id = "1093596514437-cajdhnien8cpenof8rrdlphdrboo56jh.apps.googleusercontent.com";
                                              break;
                                          case "Windows":
-                                             retval_client_id = "1093596514437-cajdhnien8cpenof8rrdlphdrboo56jh.apps.googleusercontent.com";
+                                             retval_client_id = "1093596514437-hc1s9dcnt0gq9d8b8d0gpr6vh7915o97.apps.googleusercontent.com";
                                              break;
                                      }
                                      return retval_client_id;
@@ -420,7 +420,7 @@ namespace ComicBook
                                              break;
                                          case "Windows":
                                              uri =
-                                                 "com.xamarin.traditional.standard.samples.oauth.providers.ios:/oauth2redirect"
+                                                 "com.xamarin.auth.windows:/oauth2redirect"
                                                  //"com.googleusercontent.apps.1093596514437-cajdhnien8cpenof8rrdlphdrboo56jh:/oauth2redirect"
                                                  ;
                                              break;
