@@ -73,7 +73,7 @@ namespace ComicBook
             if (forms_implementation_renderers)
             {
                 // Renderers Implementaion
-                //Navigation.PushModalAsync(new Xamarin.Auth.XamarinForms.AuthenticatorPage());
+                Navigation.PushModalAsync(new Xamarin.Auth.XamarinForms.AuthenticatorPage());
             }
             else
             {
@@ -108,7 +108,7 @@ namespace ComicBook
             if (forms_implementation_renderers)
             {
                 // Renderers Implementaion
-                //Navigation.PushModalAsync(new Xamarin.Auth.XamarinForms.AuthenticatorPage());
+                Navigation.PushModalAsync(new Xamarin.Auth.XamarinForms.AuthenticatorPage());
             }
             else
             {
@@ -430,15 +430,15 @@ namespace ComicBook
                                  }
                              ).Invoke(),
                      scope:
-                                  //"profile"
-                                  "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.login"
-                                  ,
+                              //"profile"
+                              "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.login"
+                              ,
                      getUsernameAsync: null,
                      isUsingNativeUI: native_ui
                  )
-                 {
-                     AllowCancel = true,
-                 };
+                {
+                    AllowCancel = true,
+                };
 
             authenticator.Completed +=
                 (s, ea) =>
