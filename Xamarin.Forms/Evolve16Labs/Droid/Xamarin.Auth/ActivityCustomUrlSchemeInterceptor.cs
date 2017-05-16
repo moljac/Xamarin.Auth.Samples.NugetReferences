@@ -17,11 +17,6 @@ namespace ComicBook
 {
     //=================================================================
     [Activity(Label = "ActivityCustomUrlSchemeInterceptor", NoHistory = true, LaunchMode = LaunchMode.SingleTop)]
-    // Walthrough Step 4
-    //      Intercepting/Catching/Detecting [redirect] url change 
-    //      App Linking / Deep linking - custom url schemes
-    //      
-    // 
     [
         IntentFilter
         (
@@ -51,7 +46,6 @@ namespace ComicBook
         )
     ]
     public class ActivityCustomUrlSchemeInterceptor : Activity
-    //=================================================================
     {
         string message;
 
@@ -68,7 +62,7 @@ namespace ComicBook
             System.Diagnostics.Debug.WriteLine(sb.ToString());
             #endif
 
-            // Convert iOS NSUrl to C#/netxf/BCL System.Uri - common API
+            // Convert Android NSUrl to C#/netxf/BCL System.Uri - common API
             Uri uri_netfx = new Uri(uri_android.ToString());
 
             // load redirect_url Page
