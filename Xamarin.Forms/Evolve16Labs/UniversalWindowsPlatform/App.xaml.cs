@@ -106,5 +106,18 @@ namespace ComicBook.UniversalWindowsPlatform
             //TODO: Save application state and stop any background activity
             deferral.Complete();
         }
+
+
+
+        protected override void OnActivated(IActivatedEventArgs args)
+        {
+            if (args.Kind == ActivationKind.Protocol)
+            {
+                var protocolArgs = args as ProtocolActivatedEventArgs;
+                ComicBookPCL.AuthenticationState.Authenticator.OnPageLoading(protocolArgs.Uri);
+            }
+
+            Window.Current.Activate();
+        }
     }
 }
