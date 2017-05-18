@@ -83,6 +83,19 @@ namespace ComicBook.UniversalWindowsPlatform
             }
         }
 
+        protected override void OnActivated(IActivatedEventArgs args)
+        {
+            if (args.Kind == ActivationKind.Protocol)
+            {
+                var protocolArgs = args as ProtocolActivatedEventArgs;
+                ComicBookPCL.AuthenticationState.Authenticator.OnPageLoading(protocolArgs.Uri);
+            }
+
+            Window.Current.Activate();
+
+            return;
+        }
+
         /// <summary>
         /// Invoked when Navigation to a certain page fails
         /// </summary>

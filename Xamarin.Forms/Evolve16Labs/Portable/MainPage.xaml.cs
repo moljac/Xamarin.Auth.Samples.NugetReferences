@@ -381,7 +381,7 @@ namespace ComicBook
                                              retval_client_id = "1093596514437-cajdhnien8cpenof8rrdlphdrboo56jh.apps.googleusercontent.com";
                                              break;
                                          case "Windows":
-                                             retval_client_id = "1093596514437-hc1s9dcnt0gq9d8b8d0gpr6vh7915o97.apps.googleusercontent.com";
+                                             retval_client_id = "1093596514437-t7ocfv5tqaskkd53llpfi3dtdvk4t35h.apps.googleusercontent.com";
                                              break;
                                      }
                                      return retval_client_id;
