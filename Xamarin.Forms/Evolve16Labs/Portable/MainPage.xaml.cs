@@ -17,7 +17,7 @@ namespace ComicBook
         const string Scope = "profile";
 
         Account account;
-        AccountStore store;
+        AccountStore store = null;
 
         public MainPage()
         {
@@ -42,11 +42,14 @@ namespace ComicBook
 
             this.pickerUIFrameworks.SelectedIndex = 0;
             this.pickerFormsImplementations.SelectedIndex = 0;
+            this.pickerNavigationType.SelectedIndex = 0;
 
-            Device.OnPlatform
-                  (
-                      iOS: () => this.pickerViews.SelectedIndex = 0
-                  );
+            switch (Xamarin.Forms.Device.RuntimePlatform)
+            {
+                case "iOS":
+                    this.pickerViews.SelectedIndex = 0;
+                    break;
+            }
 
             buttonGoogle.Clicked += ButtonGoogle_Clicked;
 
@@ -73,7 +76,14 @@ namespace ComicBook
             if (forms_implementation_renderers)
             {
                 // Renderers Implementaion
-                Navigation.PushModalAsync(new Xamarin.Auth.XamarinForms.AuthenticatorPage());
+                if (navigation_push_modal == true)
+                {
+                    Navigation.PushModalAsync(new Xamarin.Auth.XamarinForms.AuthenticatorPage());
+                }
+                else
+                {
+                    Navigation.PushAsync(new Xamarin.Auth.XamarinForms.AuthenticatorPage());
+                }
             }
             else
             {
@@ -264,7 +274,7 @@ namespace ComicBook
 
         bool native_ui = true;
 
-        protected void pickerUIFrameworks_SelectedIndexChanged(object sender, System.EventArgs e)
+        protected void pickerUIFrameworks_SelectedIndex(object sender, System.EventArgs e)
         {
             Picker p = sender as Picker;
 
@@ -287,7 +297,6 @@ namespace ComicBook
         }
 
         bool forms_implementation_renderers = false;
-
         public List<string> FormsImplementations => _FormsImplementations;
 
         List<string> _FormsImplementations = new List<string>()
@@ -319,6 +328,40 @@ namespace ComicBook
 
             return;
         }
+
+        bool navigation_push_modal = false;
+        public List<string> NavigationTypes => _NavigationTypes;
+
+        List<string> _NavigationTypes = new List<string>()
+        {
+            "PushAsync",
+            "PushModalAsync",
+        };
+
+        protected void pickerNavigationType_SelectedIndex(object sender, System.EventArgs e)
+        {
+            Picker p = sender as Picker;
+
+            string navigation_type = ((string)p.SelectedItem);
+            if (string.IsNullOrEmpty(navigation_type))
+                return;
+
+            if (navigation_type == "PushAsync")
+            {
+                navigation_push_modal = false;
+            }
+            else if (navigation_type == "PushModalAsync")
+            {
+                navigation_push_modal = true;
+            }
+            else
+            {
+                throw new ArgumentException("NavigationTypes error");
+            }
+
+            return;
+        }
+
 
         string web_view = null;
 
@@ -430,15 +473,15 @@ namespace ComicBook
                                  }
                              ).Invoke(),
                      scope:
-                              //"profile"
-                              "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.login"
-                              ,
+                                  //"profile"
+                                  "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.login"
+                                  ,
                      getUsernameAsync: null,
                      isUsingNativeUI: native_ui
                  )
-                {
-                    AllowCancel = true,
-                };
+                 {
+                     AllowCancel = true,
+                 };
 
             authenticator.Completed +=
                 (s, ea) =>
@@ -479,19 +522,38 @@ namespace ComicBook
                         return;
                     };
 
+            // after initialization (creation and event subscribing) exposing local object 
             AuthenticationState.Authenticator = authenticator;
 
             if (forms_implementation_renderers)
             {
                 // Renderers Implementaion
-                Navigation.PushModalAsync(new Xamarin.Auth.XamarinForms.AuthenticatorPage());
+                if (navigation_push_modal)
+                {
+                    Navigation.PushModalAsync(new Xamarin.Auth.XamarinForms.AuthenticatorPage());
+                }
+                else
+                {
+                    Navigation.PushAsync(new Xamarin.Auth.XamarinForms.AuthenticatorPage());
+                }
             }
             else
             {
                 // Presenters Implementation
-                Xamarin.Auth.Presenters.OAuthLoginPresenter presenter = null;
-                presenter = new Xamarin.Auth.Presenters.OAuthLoginPresenter();
-                presenter.Login(authenticator);
+                if (navigation_push_modal)
+                {
+                    // TODO
+                    Xamarin.Auth.Presenters.OAuthLoginPresenter presenter = null;
+                    presenter = new Xamarin.Auth.Presenters.OAuthLoginPresenter();
+                    presenter.Login(authenticator);
+                }
+                else
+                {
+                    // TODO
+                    Xamarin.Auth.Presenters.OAuthLoginPresenter presenter = null;
+                    presenter = new Xamarin.Auth.Presenters.OAuthLoginPresenter();
+                    presenter.Login(authenticator);
+                }
             }
 
             return;

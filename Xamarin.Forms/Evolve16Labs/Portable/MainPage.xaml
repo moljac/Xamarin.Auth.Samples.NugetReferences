@@ -32,7 +32,7 @@
                     <Picker 
                         x:Name="pickerUIFrameworks" 
                         ItemsSource="{Binding UIFrameworks}" 
-                        SelectedIndexChanged="pickerUIFrameworks_SelectedIndexChanged"
+                        SelectedIndex="{Binding pickerUIFrameworks_SelectedIndex}"
                         />
                     <Picker 
                         x:Name="pickerFormsImplementations" 
@@ -40,6 +40,12 @@
                         SelectedIndex="{Binding pickerFormsImplementations_SelectedIndex}"
                         />
 
+                    <Picker 
+                        x:Name="pickerNavigationType" 
+                        ItemsSource="{Binding NavigationTypes}" 
+                        SelectedIndex="{Binding pickerNavigationType_SelectedIndex}"
+                        />
+                    
                     <OnPlatform x:TypeArguments="View">
                         <OnPlatform.iOS>
                             <Picker
