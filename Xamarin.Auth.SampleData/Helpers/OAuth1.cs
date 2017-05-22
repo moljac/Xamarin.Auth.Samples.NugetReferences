@@ -28,11 +28,6 @@ namespace Xamarin.Auth.Helpers
 		}
 
 
-		public OAuth1Authenticator OAuthAuthenticator
-		{
-			get;
-			set;
-		}
 	}
 }
 
