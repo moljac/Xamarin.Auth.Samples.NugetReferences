@@ -3,16 +3,9 @@
     "Microsoft.Bcl.Build": "1.0.21",
     "Microsoft.Net.Http": "2.2.29",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
-<<<<<<< HEAD
-    "System.Net.Http": "4.3.2",
-    "Xamarin.Auth": "1.5.0-alpha-15",
-    "Xamarin.Auth.XamarinForms": "1.5.0-alpha-15",
-    "Xamarin.Forms": "2.3.4.247"
-=======
+    "Xamarin.Forms": "2.3.4.247",
     "Xamarin.Auth": "1.5.0-alpha-16",
-    "Xamarin.Auth.XamarinForms": "1.5.0-alpha-16",
-    "Xamarin.Forms": "2.3.4.231"
->>>>>>> Branch_144338e0b0309478764da2fede60f0c6f1ba42e8
+    "Xamarin.Auth.XamarinForms": "1.5.0-alpha-16"
   },
   "frameworks": {
     "uap10.0": {}

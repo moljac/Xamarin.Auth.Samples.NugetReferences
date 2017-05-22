@@ -22,7 +22,7 @@ namespace ComicBook.UniversalWindowsPlatform
                 }
                 catch (System.IO.FileLoadException exc_fl)
                 {
-                    StringBuilder sb = new StringBuilder();
+                    throw new Xamarin.Auth.AuthException("UWP custom scheme exception", exc_fl);
 
                 }
             }
