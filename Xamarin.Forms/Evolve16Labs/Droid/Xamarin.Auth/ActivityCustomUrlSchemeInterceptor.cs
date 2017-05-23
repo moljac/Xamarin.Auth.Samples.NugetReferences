@@ -15,7 +15,6 @@ using Android.Content.PM;
 
 namespace ComicBook
 {
-    //=================================================================
     [Activity(Label = "ActivityCustomUrlSchemeInterceptor", NoHistory = true, LaunchMode = LaunchMode.SingleTop)]
     [
         IntentFilter
@@ -47,8 +46,6 @@ namespace ComicBook
     ]
     public class ActivityCustomUrlSchemeInterceptor : Activity
     {
-        string message;
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);

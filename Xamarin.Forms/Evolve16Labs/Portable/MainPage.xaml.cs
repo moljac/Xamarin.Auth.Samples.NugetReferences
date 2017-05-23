@@ -17,7 +17,7 @@ namespace ComicBook
         const string Scope = "profile";
 
         Account account;
-        AccountStore store;
+        AccountStore store = null;
 
         public MainPage()
         {
@@ -40,13 +40,21 @@ namespace ComicBook
             */
             this.BindingContext = this;
 
+            this.pickerUIFrameworks.SelectedIndexChanged += pickerUIFrameworks_SelectedIndexChanged;
+            this.pickerFormsImplementations.SelectedIndexChanged += pickerFormsImplementations_SelectedIndexChanged;
+            this.pickerNavigationType.SelectedIndexChanged += pickerNavigationType_SelectedIndexChanged;
+            this.pickerViews.SelectedIndexChanged += pickerViews_SelectedIndexChanged;
+
             this.pickerUIFrameworks.SelectedIndex = 0;
             this.pickerFormsImplementations.SelectedIndex = 0;
+            this.pickerNavigationType.SelectedIndex = 0;
 
-            Device.OnPlatform
-                  (
-                      iOS: () => this.pickerViews.SelectedIndex = 0
-                  );
+            switch (Xamarin.Forms.Device.RuntimePlatform)
+            {
+                case "iOS":
+                    this.pickerViews.SelectedIndex = 0;
+                    break;
+            }
 
             buttonGoogle.Clicked += ButtonGoogle_Clicked;
 
@@ -73,7 +81,14 @@ namespace ComicBook
             if (forms_implementation_renderers)
             {
                 // Renderers Implementaion
-                Navigation.PushModalAsync(new Xamarin.Auth.XamarinForms.AuthenticatorPage());
+                if (navigation_push_modal == true)
+                {
+                    Navigation.PushModalAsync(new Xamarin.Auth.XamarinForms.AuthenticatorPage());
+                }
+                else
+                {
+                    Navigation.PushAsync(new Xamarin.Auth.XamarinForms.AuthenticatorPage());
+                }
             }
             else
             {
@@ -105,21 +120,11 @@ namespace ComicBook
 
             AuthenticationState.Authenticator = authenticator;
 
-            if (forms_implementation_renderers)
-            {
-                // Renderers Implementaion
-                Navigation.PushModalAsync(new Xamarin.Auth.XamarinForms.AuthenticatorPage());
-            }
-            else
-            {
-                // Presenters Implementation
-                Xamarin.Auth.Presenters.OAuthLoginPresenter presenter = null;
-                presenter = new Xamarin.Auth.Presenters.OAuthLoginPresenter();
-                presenter.Login(authenticator);
-            }
+            PresentUILoginScreen(authenticator);
 
             return;
         }
+
 
         async void GetProfileButtonClicked(object sender, EventArgs e)
         {
@@ -287,7 +292,6 @@ namespace ComicBook
         }
 
         bool forms_implementation_renderers = false;
-
         public List<string> FormsImplementations => _FormsImplementations;
 
         List<string> _FormsImplementations = new List<string>()
@@ -296,7 +300,7 @@ namespace ComicBook
             "Custom Renderers",
         };
 
-        protected void pickerFormsImplementations_SelectedIndex(object sender, System.EventArgs e)
+        protected void pickerFormsImplementations_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             Picker p = sender as Picker;
 
@@ -306,10 +310,14 @@ namespace ComicBook
 
             if (implementation == "Presenters (Dependency Service/Injection)")
             {
+                System.Diagnostics.Debug.WriteLine("Presenters (Dependency Service/Injection)");
+
                 forms_implementation_renderers = false;
             }
             else if (implementation == "Custom Renderers")
             {
+                System.Diagnostics.Debug.WriteLine("Custom Renderers");
+
                 forms_implementation_renderers = true;
             }
             else
@@ -319,6 +327,44 @@ namespace ComicBook
 
             return;
         }
+
+        bool navigation_push_modal = false;
+        public List<string> NavigationTypes => _NavigationTypes;
+
+        List<string> _NavigationTypes = new List<string>()
+        {
+            "PushAsync",
+            "PushModalAsync",
+        };
+
+        protected void pickerNavigationType_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            Picker p = sender as Picker;
+
+            string navigation_type = ((string)p.SelectedItem);
+            if (string.IsNullOrEmpty(navigation_type))
+                return;
+
+            if (navigation_type == "PushAsync")
+            {
+                System.Diagnostics.Debug.WriteLine("PushAsync");
+
+                navigation_push_modal = false;
+            }
+            else if (navigation_type == "PushModalAsync")
+            {
+                System.Diagnostics.Debug.WriteLine("PushModalAsync");
+
+                navigation_push_modal = true;
+            }
+            else
+            {
+                throw new ArgumentException("NavigationTypes error");
+            }
+
+            return;
+        }
+
 
         string web_view = null;
 
@@ -330,19 +376,32 @@ namespace ComicBook
             "WKWebView",
         };
 
-        protected void pickerViews_SelectedIndex(object sender, System.EventArgs e)
+        protected void pickerViews_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             Picker p = sender as Picker;
 
             web_view = ((string)p.SelectedItem);
 
+            IEmbeddedWebViewConfiguration cfg = DependencyService.Get<IEmbeddedWebViewConfiguration>();
+
+            if (null == cfg)
+            {
+                //TODO: check dependency service
+
+                return;
+            }
+
             if (web_view == "UIWebView")
             {
-                DependencyService.Get<IEmbeddedWebViewConfiguration>().IsUsingWKWebView = false;
+                System.Diagnostics.Debug.WriteLine("UIWebView");
+
+                cfg.IsUsingWKWebView = false;
             }
             else if (web_view == "WKWebView")
             {
-                DependencyService.Get<IEmbeddedWebViewConfiguration>().IsUsingWKWebView = true;
+                System.Diagnostics.Debug.WriteLine("WKWebView");
+
+                cfg.IsUsingWKWebView = true;
             }
             else
             {
@@ -353,6 +412,58 @@ namespace ComicBook
         }
 
         Xamarin.Auth.OAuth2Authenticator authenticator = null;
+
+        private void PresentUILoginScreen(OAuth2Authenticator authenticator)
+        {
+            if (forms_implementation_renderers)
+            {
+                // Renderers Implementaion
+
+                if (navigation_push_modal == true)
+                {
+                    System.Diagnostics.Debug.WriteLine("Presenting");
+                    System.Diagnostics.Debug.WriteLine("        PushModal");
+                    System.Diagnostics.Debug.WriteLine("        Custom Renderers");
+
+                    Navigation.PushModalAsync(new Xamarin.Auth.XamarinForms.AuthenticatorPage());
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine("Presenting");
+                    System.Diagnostics.Debug.WriteLine("        Push");
+                    System.Diagnostics.Debug.WriteLine("        Custom Renderers");
+
+                    Navigation.PushAsync(new Xamarin.Auth.XamarinForms.AuthenticatorPage());
+                }
+            }
+            else
+            {
+                // Presenters Implementation
+
+                if (navigation_push_modal == true)
+                {
+                    System.Diagnostics.Debug.WriteLine("Presenting");
+                    System.Diagnostics.Debug.WriteLine("        PushModal");
+                    System.Diagnostics.Debug.WriteLine("        Presenters");
+
+                    Xamarin.Auth.Presenters.OAuthLoginPresenter presenter = null;
+                    presenter = new Xamarin.Auth.Presenters.OAuthLoginPresenter();
+                    presenter.Login(authenticator);
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine("Presenting");
+                    System.Diagnostics.Debug.WriteLine("        Push");
+                    System.Diagnostics.Debug.WriteLine("        Presenters");
+
+                    Xamarin.Auth.Presenters.OAuthLoginPresenter presenter = null;
+                    presenter = new Xamarin.Auth.Presenters.OAuthLoginPresenter();
+                    presenter.Login(authenticator);
+                }
+            }
+
+            return;
+        }
 
         protected void ButtonGoogle_Clicked(object sender, EventArgs e)
         {
@@ -430,15 +541,15 @@ namespace ComicBook
                                  }
                              ).Invoke(),
                      scope:
-                              //"profile"
-                              "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.login"
-                              ,
+                                  //"profile"
+                                  "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.login"
+                                  ,
                      getUsernameAsync: null,
                      isUsingNativeUI: native_ui
                  )
-                {
-                    AllowCancel = true,
-                };
+                 {
+                     AllowCancel = true,
+                 };
 
             authenticator.Completed +=
                 (s, ea) =>
@@ -479,20 +590,10 @@ namespace ComicBook
                         return;
                     };
 
+            // after initialization (creation and event subscribing) exposing local object 
             AuthenticationState.Authenticator = authenticator;
 
-            if (forms_implementation_renderers)
-            {
-                // Renderers Implementaion
-                Navigation.PushModalAsync(new Xamarin.Auth.XamarinForms.AuthenticatorPage());
-            }
-            else
-            {
-                // Presenters Implementation
-                Xamarin.Auth.Presenters.OAuthLoginPresenter presenter = null;
-                presenter = new Xamarin.Auth.Presenters.OAuthLoginPresenter();
-                presenter.Login(authenticator);
-            }
+            PresentUILoginScreen(authenticator);
 
             return;
         }

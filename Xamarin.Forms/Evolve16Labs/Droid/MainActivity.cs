@@ -19,6 +19,9 @@ namespace ComicBook
             global::Xamarin.Forms.Forms.Init(this, bundle);
             global::Xamarin.Auth.Presenters.XamarinAndroid.AuthenticationConfiguration.Init(this, bundle);
 
+            global::Xamarin.Auth.CustomTabsConfiguration.ActionLabel = null;
+            global::Xamarin.Auth.CustomTabsConfiguration.MenuItemTitle = null;
+
             LoadApplication(new App());
         }
     }
