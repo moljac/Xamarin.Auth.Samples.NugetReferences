@@ -63,6 +63,10 @@
                         Text="Google OAuth" 
                         />
 
+                    <Button 
+                        x:Name="buttonFacebook" 
+                        Text="Facebook OAuth" 
+                        />
     				
     			</StackLayout>
     		</ScrollView>

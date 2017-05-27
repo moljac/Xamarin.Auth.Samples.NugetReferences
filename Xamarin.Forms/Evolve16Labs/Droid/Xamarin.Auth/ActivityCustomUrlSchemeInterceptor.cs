@@ -15,7 +15,13 @@ using Android.Content.PM;
 
 namespace ComicBook
 {
+    //=================================================================
     [Activity(Label = "ActivityCustomUrlSchemeInterceptor", NoHistory = true, LaunchMode = LaunchMode.SingleTop)]
+    // Walthrough Step 4
+    //      Intercepting/Catching/Detecting [redirect] url change 
+    //      App Linking / Deep linking - custom url schemes
+    //      
+    // 
     [
         IntentFilter
         (
@@ -28,8 +34,9 @@ namespace ComicBook
             DataSchemes = new[]
                     {
                         "com.xamarin.traditional.standard.samples.oauth.providers.android",
-                        /*
                         "com.googleusercontent.apps.1093596514437-d3rpjj7clslhdg3uv365qpodsl5tq4fn",
+                        "fb1889013594699403://localhost/path",
+                        /*
                         "urn:ietf:wg:oauth:2.0:oob",
                         "urn:ietf:wg:oauth:2.0:oob.auto",
                         "http://localhost:PORT",
@@ -45,7 +52,10 @@ namespace ComicBook
         )
     ]
     public class ActivityCustomUrlSchemeInterceptor : Activity
+    //=================================================================
     {
+        string message;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -59,7 +69,7 @@ namespace ComicBook
             System.Diagnostics.Debug.WriteLine(sb.ToString());
             #endif
 
-            // Convert Android NSUrl to C#/netxf/BCL System.Uri - common API
+            // Convert iOS NSUrl to C#/netxf/BCL System.Uri - common API
             Uri uri_netfx = new Uri(uri_android.ToString());
 
             // load redirect_url Page
