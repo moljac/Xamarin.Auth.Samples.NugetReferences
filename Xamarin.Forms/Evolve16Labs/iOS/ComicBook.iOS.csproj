@@ -115,10 +115,10 @@
       <HintPath>..\packages\Xamarin.Forms.2.3.4.247\lib\Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Auth">
-      <HintPath>..\packages\Xamarin.Auth.1.5.0\lib\Xamarin.iOS10\Xamarin.Auth.dll</HintPath>
+      <HintPath>..\packages\Xamarin.Auth.1.5.0.1\lib\Xamarin.iOS10\Xamarin.Auth.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Auth.XamarinForms">
-      <HintPath>..\packages\Xamarin.Auth.XamarinForms.1.5.0\lib\Xamarin.iOS10\Xamarin.Auth.XamarinForms.dll</HintPath>
+      <HintPath>..\packages\Xamarin.Auth.XamarinForms.1.5.0.1\lib\Xamarin.iOS10\Xamarin.Auth.XamarinForms.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
