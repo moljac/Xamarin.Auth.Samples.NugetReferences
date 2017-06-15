@@ -5,10 +5,6 @@ original Xamarin.Auth repo:
 
 https://github.com/xamarin/Xamarin.Auth
 
-current branch - portable-bait-and-switch:
-
-https://github.com/xamarin/Xamarin.Auth/tree/portable-bait-and-switch
-
 This repo has faster update cadence than actual nuget samples in Xamarin.Auth
 repo:
 
