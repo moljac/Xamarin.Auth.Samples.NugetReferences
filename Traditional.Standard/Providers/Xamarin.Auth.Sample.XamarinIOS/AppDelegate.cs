@@ -41,6 +41,11 @@ namespace Xamarin.Auth.Sample.XamarinIOS
             navCtrl.NavigationBar.TitleTextAttributes = new UIStringAttributes { ForegroundColor = UIColor.White };
             window.RootViewController = navCtrl;
 
+            // User-Agent API
+            // iOS 8.x crash
+            //global::Xamarin.Auth.WebViewConfiguration.IOS.UserAgent = "moljac++";
+
+
             // make the window visible
             window.MakeKeyAndVisible();
 

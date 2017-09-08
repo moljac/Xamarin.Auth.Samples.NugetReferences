@@ -115,10 +115,10 @@
       <HintPath>..\packages\Xamarin.Forms.2.3.4.247\lib\Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Auth">
-      <HintPath>..\packages\Xamarin.Auth.1.5.0.1\lib\Xamarin.iOS10\Xamarin.Auth.dll</HintPath>
+      <HintPath>..\packages\Xamarin.Auth.1.5.0.2\lib\Xamarin.iOS10\Xamarin.Auth.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Auth.XamarinForms">
-      <HintPath>..\packages\Xamarin.Auth.XamarinForms.1.5.0.1\lib\Xamarin.iOS10\Xamarin.Auth.XamarinForms.dll</HintPath>
+      <HintPath>..\packages\Xamarin.Auth.XamarinForms.1.5.0.2\lib\Xamarin.iOS10\Xamarin.Auth.XamarinForms.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +145,14 @@
     <ProjectReference Include="..\Portable\ComicBook.csproj">
       <Project>{E26057EC-7AD5-4AD8-8649-FBE60552163D}</Project>
       <Name>ComicBook</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.iOS\Xamarin.Auth.Forms.iOS.csproj">
+      <Project>{7666F0AB-7493-49F2-82B0-7D51A0250FC9}</Project>
+      <Name>Xamarin.Auth.Forms.iOS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\source\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj">
+      <Project>{15BE2387-8E72-4C0B-8A6A-460EF5FA4539}</Project>
+      <Name>Xamarin.Auth.XamarinIOS</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

@@ -9,12 +9,20 @@ Method 'Android.Support.CustomTabs.CustomTabsIntent.LaunchUrl' not found.
 
 # Success Stories
 
+https://xamarinchat.slack.com/archives/C4TD1NHPT/p1497633027539910
 https://xamarinchat.slack.com/archives/C4TD1NHPT/p1493059446261920
 https://xamarinchat.slack.com/archives/C4TD1NHPT/p1493060274542109
 
 https://github.com/xamarin/Xamarin.Auth/issues/167#issuecomment-297368679
 
-@subhamoy Glad you found the solution. Sorry I was (still am) out with kids on the sports practice. Sorry for delay.
+
+
+https://forums.xamarin.com/discussion/comment/280526/#Comment_280526
+https://forums.xamarin.com/discussion/comment/252965/#Comment_252965
+
+
+@subhamoy Glad you found the solution. Sorry I was (still am) out with kids on 
+the sports practice. Sorry for delay.
 
 [8:44] 
 So most of the things are OK?
@@ -23,7 +31,8 @@ So most of the things are OK?
 most - because there are still some issues…
 
 leobaillard [8:45 PM] 
-@moljac err :stuck_out_tongue: I can _try_, but I'm not sure I'll succeed ^^ I'm still fairly new to all this
+@moljac err :stuck_out_tongue: I can _try_, but I'm not sure I'll succeed 
+^^ I'm still fairly new to all this
 
 moljac [8:45 PM] 
 No.
@@ -44,13 +53,16 @@ moljac [8:46 PM]
 I have code from 2015. Let me show you… But needs refactoring a bit (I hope)
 
 subhamoy [8:46 PM] 
-@moljac  - yes pretty much, I think Xamarin.Auth custom tabs are quite stable now. The only thing we are struggling is to add a host domain in Xamarin.Auth so that we can restrict user to a particular domain only while logging in.
+@moljac  - yes pretty much, I think Xamarin.Auth custom tabs are quite stable now. 
+The only thing we are struggling is to add a host domain in Xamarin.Auth so that 
+we can restrict user to a particular domain only while logging in.
 
 moljac [8:47 PM] 
 Cool. Glad to hear that.
 
 [8:47] 
-Forms are still problematic… Nuget dependencies and when linker jumps in => problems
+Forms are still problematic… Nuget dependencies and when linker jumps in => 
+problems
 
 [8:47] 
 1.5.0 looks good. Todays tests
@@ -83,20 +95,27 @@ moljac [8:51 PM]
 seems like this is google specific (thus OPTIONAL)
 
 subhamoy [8:51 PM] 
-Is it that - we are currently developing the app for stanford.edu domain login. Which uses google oauth behind the scenes. But in current Xamarin.Auth we don't have any way to restrict that.
+Is it that - we are currently developing the app for stanford.edu domain login. 
+Which uses google oauth behind the scenes. But in current Xamarin.Auth we don't 
+have any way to restrict that.
 
 [8:52] 
 Yes quite right.
 
 [8:52] 
-Is there any way you could think of to implement it in current Xamarin.Auth, I could try it from my end then.
+Is there any way you could think of to implement it in current Xamarin.Auth, I 
+could try it from my end then.
 
 moljac [8:54 PM] 
-I mean this parameter needs to be added to all other REQUIRED parametes in the URL it is simple as that :sunglasses:
+I mean this parameter needs to be added to all other REQUIRED parametes in the 
+URL it is simple as that :sunglasses:
 
 [8:56] 
-The problem for me (as non author, just late-came-in (unfortunate :sunglasses: ) maintainer) is that everything happens in the ctor of OAuth2Authenticator even 1st request.
-For me something like React’s Redux would be nicer for API and explicitly to say: now go…
+The problem for me (as non author, just late-came-in (unfortunate :sunglasses: ) 
+maintainer) is that everything happens in the ctor of OAuth2Authenticator even 
+1st request.
+For me something like React’s Redux would be nicer for API and explicitly to say: 
+now go…
 
 [8:57] 
 Right now the problem is security and stability.
@@ -108,7 +127,8 @@ Adding CustomTabs and SFSafariViewController passed with mid range sleepless nig
 And looks good.
 
 leobaillard [8:57 PM] 
-holy crap! the custom tab opened ! \o/ ok, I got an "Unsupported response type" error, but I got the freakin' custom tab
+holy crap! the custom tab opened ! \o/ ok, I got an "Unsupported response type" 
+error, but I got the freakin' custom tab
 
 subhamoy [8:58 PM] 
 \m/ way to go @leobaillard
@@ -135,10 +155,13 @@ In Xamarin.Auth it was required
 the fix is in 1.5.0-alpha-08, but seems like something was not packaged properly
 
 subhamoy [9:00 PM] 
-great - @moljac - meantime if you could think of anyway developers could tweak - Xamarin.Auth to support "host domain" it would be great.
+great - @moljac - meantime if you could think of anyway developers could tweak - 
+Xamarin.Auth to support "host domain" it would be great.
 
 moljac [9:02 PM] 
-all I can think of…  Besides these 2 ctors to add ctor where all those properties are added as key-value pairs - check property Properties of those classes. This is actually in what ctors write…
+all I can think of…  Besides these 2 ctors to add ctor where all those properties 
+are added as key-value pairs - check property Properties of those classes. This 
+is actually in what ctors write…
 
 [9:02] 
 before requesting…

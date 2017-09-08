@@ -1,11 +1,7 @@
 ﻿{
   "dependencies": {
-    "Microsoft.Bcl.Build": "1.0.21",
-    "Microsoft.Net.Http": "2.2.29",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
-    "Xamarin.Auth": "1.5.0",
-    "Xamarin.Auth.XamarinForms": "1.5.0-alpha-16",
-    "Xamarin.Forms": "2.3.4.247"
+    "Xamarin.Forms": "2.3.4.231"
   },
   "frameworks": {
     "uap10.0": {}

@@ -9,7 +9,7 @@ using System.Text;
 
 using System.Windows.Controls;
 
-using Xamarin.Auth.SampleData;
+using Xamarin.Auth.ProviderSamples;
 
 namespace Xamarin.Auth.Sample
 {
@@ -24,22 +24,24 @@ namespace Xamarin.Auth.Sample
 			string si = ((ListBox)sender).SelectedItem.ToString();
 			string provider = si;
 
-			Xamarin.Auth.Helpers.OAuth auth;
-			if (!Data.TestCases.TryGetValue (provider, out auth)) {
+			Xamarin.Auth.ProviderSamples.Helpers.OAuth auth;
+			if (!Data.TestCases.TryGetValue (provider, out auth))
+            {
 				MessageBox.Show("Unknown OAuth Provider!");
 			}
-			if (auth is Xamarin.Auth.Helpers.OAuth1) {
-				Authenticate (auth as Xamarin.Auth.Helpers.OAuth1);
-			} else {
-				Authenticate (auth as Xamarin.Auth.Helpers.OAuth2);
+			if (auth is Xamarin.Auth.ProviderSamples.Helpers.OAuth1)
+            {
+				Authenticate (auth as Xamarin.Auth.ProviderSamples.Helpers.OAuth1);
+			} else
+            {
+				Authenticate (auth as Xamarin.Auth.ProviderSamples.Helpers.OAuth2);
 			}
 			var list = Data.TestCases;
 
-			return;
-
+            return;
 		}
 
-		private void Authenticate(Xamarin.Auth.Helpers.OAuth1 oauth1)
+		private void Authenticate(Xamarin.Auth.ProviderSamples.Helpers.OAuth1 oauth1)
 		{
 			OAuth1Authenticator auth = new OAuth1Authenticator 
 				(
@@ -59,31 +61,37 @@ namespace Xamarin.Auth.Sample
 			auth.BrowsingCompleted += Auth_BrowsingCompleted;
 
 			Uri uri = auth.GetUI ();
+            // For Xamarin.Forms refactoring
+            Microsoft.Phone.Controls.PhoneApplicationPage this_page = this;
             this.NavigationService.Navigate(uri);
 
 			return;
 		}
 
-		private void Authenticate(Xamarin.Auth.Helpers.OAuth2 oauth2)
+		private void Authenticate(Xamarin.Auth.ProviderSamples.Helpers.OAuth2 oauth2)
 		{
 			OAuth2Authenticator auth = null;
 
 			if (oauth2.OAuth_UriAccessToken_UriRequestToken == null || string.IsNullOrEmpty (oauth2.OAuth_SecretKey_ConsumerSecret_APISecret)) {
-				auth = new OAuth2Authenticator (
-					clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
-					scope: oauth2.OAuth2_Scope,
-					authorizeUrl: oauth2.OAuth_UriAuthorization,
-					redirectUrl: oauth2.OAuth_UriCallbackAKARedirect
-				);
-			} else {
-				auth = new OAuth2Authenticator (
-					clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
-					clientSecret: "93e7f486b09bd1af4c38913cfaacbf8a384a50d2",
-					scope: oauth2.OAuth2_Scope,
-					authorizeUrl: oauth2.OAuth_UriAuthorization,
-					redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
-					accessTokenUrl: oauth2.OAuth_UriAccessToken_UriRequestToken
-                );
+				auth = new OAuth2Authenticator 
+                    (
+					    clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
+					    scope: oauth2.OAuth2_Scope,
+					    authorizeUrl: oauth2.OAuth_UriAuthorization,
+					    redirectUrl: oauth2.OAuth_UriCallbackAKARedirect
+				    );
+			}
+            else
+            {
+				auth = new OAuth2Authenticator 
+                                (
+					                clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
+					                clientSecret: "93e7f486b09bd1af4c38913cfaacbf8a384a50d2",
+					                scope: oauth2.OAuth2_Scope,
+					                authorizeUrl: oauth2.OAuth_UriAuthorization,
+					                redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
+					                accessTokenUrl: oauth2.OAuth_UriAccessToken_UriRequestToken
+                                );
 			}
 
 			auth.AllowCancel = oauth2.AllowCancel;
@@ -94,7 +102,9 @@ namespace Xamarin.Auth.Sample
 			auth.BrowsingCompleted += Auth_BrowsingCompleted;
 
             Uri uri = auth.GetUI();
-            this.NavigationService.Navigate(uri);
+            // For Xamarin.Forms refactoring
+            Microsoft.Phone.Controls.PhoneApplicationPage this_page = this;
+            this_page.NavigationService.Navigate(uri);
 
             return;
 		}

@@ -63,7 +63,7 @@ namespace ComicBook.WinRTWindows81
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 Xamarin.Forms.Forms.Init(e); // requires LaunchActivatedEventArgs
-                global::Xamarin.Auth.Presenters.WinRT.AuthenticationConfiguration.Init();
+                global::Xamarin.Auth.Presenters..AuthenticationConfiguration.Init();
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {

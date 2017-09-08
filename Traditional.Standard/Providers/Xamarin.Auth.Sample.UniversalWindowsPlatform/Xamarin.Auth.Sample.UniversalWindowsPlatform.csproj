@@ -92,6 +92,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="packages.config" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
@@ -133,6 +134,25 @@
     </Page>
   </ItemGroup>
   <!--
+  ==================================================================================================
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
+  msbuild Choose When ProjectReference Reference Include
+  -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\source\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj" Condition="exists('..\..\..\..\source\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj')">
+      <Project>{2d712aa6-7697-4f4d-b5f1-aa03476f59a7}</Project>
+      <Name>Xamarin.Auth.UniversalWindowsPlatform</Name>
+    </ProjectReference>
+    <Reference Include="Xamarin.Auth" Condition="! exists('..\..\..\..\source\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj')">
+      <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\uap10.0\Xamarin.Auth.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <!--
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  ==================================================================================================
+  -->
+  <!--
     ==================================================================================================
     <Folder Include="SamplesData.Linked\" />
     <Folder Include="SamplesData.Linked\Helpers" />
@@ -145,7 +165,7 @@
     ==================================================================================================
     -->
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Xamarin.Auth.SampleData\Xamarin.Auth.SamplesData.csproj">
+    <ProjectReference Include="..\..\..\Xamarin.Auth.OAuthProviders.Portable\Xamarin.Auth.OAuthProviders.Portable.csproj">
       <Project>{d94b6ff7-faa3-46ab-837a-0fa9328ba221}</Project>
       <Name>Xamarin.Auth.SamplesData</Name>
       <Private>False</Private>

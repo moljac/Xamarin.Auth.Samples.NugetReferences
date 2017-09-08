@@ -5,13 +5,14 @@ using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using System.Text;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+
 using Xamarin.Auth.Sample.Resources;
 
-using System.Text;
 
-using Xamarin.Auth.SampleData;
+using Xamarin.Auth.ProviderSamples;
 
 namespace Xamarin.Auth.Sample
 {

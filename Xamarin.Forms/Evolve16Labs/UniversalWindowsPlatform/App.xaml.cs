@@ -57,7 +57,7 @@ namespace ComicBook.UniversalWindowsPlatform
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 Xamarin.Forms.Forms.Init(e); // requires the `e` parameter
-                global::Xamarin.Auth.Presenters.UWP.AuthenticationConfiguration.Init();
+                global::Xamarin.Auth.Presenters.UniversalWindowsPlatform.AuthenticationConfiguration.Init();
 
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
@@ -106,6 +106,5 @@ namespace ComicBook.UniversalWindowsPlatform
             //TODO: Save application state and stop any background activity
             deferral.Complete();
         }
-
     }
 }

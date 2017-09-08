@@ -5,6 +5,7 @@ using System.Linq;
 #if ! __CLASSIC__
 using Foundation;
 using UIKit;
+using System.IO;
 #else
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
@@ -59,14 +60,14 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                                     NSObject annotation
                                 )
         {
-            #if DEBUG
+#if DEBUG
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
             sb.AppendLine("OpenURL Called");
             sb.Append("     url         = ").AppendLine(url.AbsoluteUrl.ToString());
             sb.Append("     application = ").AppendLine(sourceApplication);
             sb.Append("     annotation  = ").AppendLine(annotation?.ToString());
             System.Diagnostics.Debug.WriteLine(sb.ToString());
-            #endif
+#endif
 
             // Convert iOS NSUrl to C#/netxf/BCL System.Uri - common API
             Uri uri_netfx = new Uri(url.AbsoluteString);
@@ -75,7 +76,30 @@ namespace Xamarin.Auth.Sample.XamarinIOS
             TestProvidersController.Auth2?.OnPageLoading(uri_netfx);
             TestProvidersController.Auth1?.OnPageLoading(uri_netfx);
 
+            Notify(url);
+
             return true;
+        }
+
+        private void Notify(NSUrl url)
+        {
+            NSUrlComponents components = new NSUrlComponents(url, false);
+
+            NSUrlQueryItem token_part =
+                            (
+                                from NSUrlQueryItem qi in components.QueryItems
+                                where qi.Name == "token"
+                                select qi
+                            ).FirstOrDefault();
+
+            if (token_part != null)
+            {
+                NSNotification notification = new NSNotification(null);
+
+                NSNotificationCenter.DefaultCenter.PostNotification(notification);
+            }
+
+
         }
 
     }

@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Windows;
-
-
+using System.Threading.Tasks;
 using System.Text;
 
 //using System.Windows.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Controls;
-
-using Xamarin.Auth.SampleData;
 using Windows.UI.Popups;
-using System.Threading.Tasks;
+
+using Xamarin.Auth.ProviderSamples;
 
 namespace Xamarin.Auth.Sample
 {
@@ -28,18 +26,18 @@ namespace Xamarin.Auth.Sample
             string si = ((ListBox)sender).SelectedItem.ToString();
             string provider = si;
 
-            Xamarin.Auth.Helpers.OAuth auth;
+            Xamarin.Auth.ProviderSamples.Helpers.OAuth auth;
             if (!Data.TestCases.TryGetValue(provider, out auth))
             {
                 //TODO: MessageBox.Show("Unknown OAuth Provider!");
             }
-            if (auth is Xamarin.Auth.Helpers.OAuth1)
+            if (auth is Xamarin.Auth.ProviderSamples.Helpers.OAuth1)
             {
-                Authenticate(auth as Xamarin.Auth.Helpers.OAuth1);
+                Authenticate(auth as Xamarin.Auth.ProviderSamples.Helpers.OAuth1);
             }
             else
             {
-                Authenticate(auth as Xamarin.Auth.Helpers.OAuth2);
+                Authenticate(auth as Xamarin.Auth.ProviderSamples.Helpers.OAuth2);
             }
             var list = Data.TestCases;
 
@@ -47,7 +45,7 @@ namespace Xamarin.Auth.Sample
 
         }
 
-        private void Authenticate(Xamarin.Auth.Helpers.OAuth1 oauth1)
+        private void Authenticate(Xamarin.Auth.ProviderSamples.Helpers.OAuth1 oauth1)
         {
             OAuth1Authenticator auth = new OAuth1Authenticator
                 (
@@ -69,13 +67,14 @@ namespace Xamarin.Auth.Sample
             //Uri uri = auth.GetUI();
             Type page_type = auth.GetUI();
 
-            //(System.Windows.Application.Current.RootVisual as PhoneApplicationFrame).Navigate(uri);
-            this.Frame.Navigate(page_type, auth);
+            // For Xamarin.Forms refactoring
+            Windows.UI.Xaml.Controls.Page this_page = this;
+            this_page.Frame.Navigate(page_type, auth);
 
             return;
         }
 
-        private void Authenticate(Xamarin.Auth.Helpers.OAuth2 oauth2)
+        private void Authenticate(Xamarin.Auth.ProviderSamples.Helpers.OAuth2 oauth2)
         {
             OAuth2Authenticator auth = null;
 
@@ -112,8 +111,9 @@ namespace Xamarin.Auth.Sample
             //Uri uri = auth.GetUI();
             Type page_type = auth.GetUI();
 
-            //(System.Windows.Application.Current.RootVisual as PhoneApplicationFrame).Navigate(uri);
-            this.Frame.Navigate(page_type, auth);
+            // For Xamarin.Forms refactoring
+            Windows.UI.Xaml.Controls.Page this_page = this;
+            this_page.Frame.Navigate(page_type, auth);
 
             return;
         }
